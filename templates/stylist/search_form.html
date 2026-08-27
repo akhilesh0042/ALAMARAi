@@ -1,0 +1,61 @@
+<form method="POST">
+
+    {% csrf_token %}
+
+    <div>
+        <label>Occasion</label>
+        <select name="occasion">
+            <option value="College">College</option>
+            <option value="Office">Office</option>
+            <option value="Casual">Casual</option>
+            <option value="Party">Party</option>
+            <option value="Wedding">Wedding</option>
+        </select>
+    </div>
+
+    <div>
+        <label>Weather</label>
+        <select name="weather">
+            <option value="Sunny">Sunny</option>
+            <option value="Cloudy">Cloudy</option>
+            <option value="Rainy">Rainy</option>
+            <option value="Cold">Cold</option>
+        </select>
+    </div>
+
+    <div>
+        <label>Preferred Style</label>
+        <select name="style">
+            <option value="">Any Style</option>
+            <option value="Casual">Casual</option>
+            <option value="Formal">Formal</option>
+            <option value="Streetwear">Streetwear</option>
+            <option value="Minimal">Minimal</option>
+            <option value="Traditional">Traditional</option>
+            <option value="Sport">Sport</option>
+            <option value="Vintage">Vintage</option>
+        </select>
+    </div>
+
+    <div>
+        <label>Preferred Color</label>
+        <select name="color">
+            <option value="">Any Color</option>
+            <option value="Black">Black</option>
+            <option value="White">White</option>
+            <option value="Blue">Blue</option>
+            <option value="Grey">Grey</option>
+            <option value="Brown">Brown</option>
+            <option value="Beige">Beige</option>
+            <option value="Green">Green</option>
+            <option value="Pink">Pink</option>
+            <option value="Purple">Purple</option>
+            <option value="Red">Red</option>
+        </select>
+    </div>
+
+    <button type="submit">
+        Generate Outfit
+    </button>
+
+</form>

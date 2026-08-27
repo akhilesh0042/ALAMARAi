@@ -1,0 +1,390 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+ALAMARAi | AI Upload & Style Analyzer
+{% endblock %}
+
+{% block extra_css %}
+<style>
+/* =====================================
+   AI UPLOAD & ANALYZER PAGE REFINEMENT
+===================================== */
+:root {
+    --bg-warm: #FAF8F4;
+    --card-pure: #FFFFFF;
+    --text-main: #171717;
+    --text-muted: #666666;
+    --gold: #C8A96A;
+    --gold-dark: #AA8748;
+    --border-subtle: #ECE7DE;
+    --shadow-soft: 0 20px 50px rgba(0,0,0,0.06);
+    --radius-btn: 50px;
+    --radius-sec: 36px;
+}
+
+body {
+    background-color: var(--bg-warm);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+}
+
+.ai-upload-wrapper {
+    min-height: calc(85vh - 90px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+/* Main container (Flex layout to ensure height matches dynamically) */
+.ai-upload-container {
+    width: 100%;
+    max-width: 1150px;
+    background: var(--card-pure);
+    border-radius: var(--radius-sec);
+    overflow: hidden;
+    display: flex;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--border-subtle);
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Left fashion image section */
+.ai-left {
+    flex: 1;
+    background: 
+        linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 80%),
+        url("{% static 'images/1.jpeg' %}");
+    background-size: cover;
+    background-position: center;
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: white;
+    position: relative;
+}
+
+.ai-left h1 {
+    font-size: 2.8rem;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    color: #FFFFFF;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.ai-left h1 span {
+    color: var(--gold);
+    font-style: italic;
+}
+
+.ai-left p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #F3F3F3;
+    font-weight: 300;
+    margin: 0;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.6);
+}
+
+/* Right section */
+.ai-right {
+    flex: 1.2;
+    padding: 50px 45px;
+    background: var(--card-pure);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.ai-right-top h2 {
+    font-size: 2rem;
+    color: var(--text-main);
+    margin-bottom: 6px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+}
+
+.ai-subtitle {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 24px;
+    font-weight: 300;
+}
+
+/* Upload Dropzone */
+.upload-box {
+    height: 175px;
+    border: 2px dashed var(--border-subtle);
+    border-radius: 18px;
+    background: var(--bg-warm);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.upload-box:hover {
+    border-color: var(--gold);
+    background: #FFFFFF;
+    box-shadow: 0 10px 30px rgba(200, 169, 106, 0.1);
+}
+
+.upload-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 15px;
+}
+
+.upload-content svg {
+    margin-bottom: 8px;
+    color: var(--gold);
+}
+
+.upload-content h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-main);
+    margin-bottom: 4px;
+    font-family: 'Playfair Display', serif;
+}
+
+.upload-content p {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin-bottom: 6px;
+    font-weight: 300;
+    line-height: 1.3;
+}
+
+.upload-content span {
+    color: var(--gold-dark);
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+/* Image Preview element injected by JS */
+.preview-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    border: 2px solid var(--gold);
+}
+
+/* Submit Action Button */
+.analyze-btn {
+    width: 100%;
+    height: 48px;
+    margin-top: 20px;
+    border: none;
+    border-radius: var(--radius-btn);
+    background: var(--text-main);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.analyze-btn:hover {
+    background: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 15px 35px rgba(200, 169, 106, 0.3);
+}
+
+/* Feature Cards at the bottom */
+.ai-features {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.ai-feature-card {
+    flex: 1;
+    background: var(--bg-warm);
+    padding: 14px 10px;
+    border-radius: 14px;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    border: 1px solid var(--border-subtle);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.ai-feature-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-2px);
+    background: var(--card-pure);
+}
+
+.ai-feature-card strong {
+    display: block;
+    color: var(--text-main);
+    font-size: 0.8rem;
+    margin-bottom: 2px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .ai-upload-container {
+        flex-direction: column;
+        max-width: 650px;
+    }
+    .ai-left {
+        min-height: 260px;
+        padding: 40px;
+    }
+    .ai-right {
+        padding: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ai-features {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container ai-upload-wrapper">
+
+    <div class="ai-upload-container">
+
+        <!-- Left Editorial Section with Static Asset Background -->
+        <div class="ai-left">
+            <h1>
+                Discover Your <span>Style</span>
+            </h1>
+            <p>
+                Upload your clothing piece to receive automated categorization, color palettes, and intelligent outfit suggestions.
+            </p>
+        </div>
+
+        <!-- Right Upload Form Section -->
+        <div class="ai-right">
+            <div class="ai-right-top">
+                <h2>
+                    AI Wardrobe Upload
+                </h2>
+                <p class="ai-subtitle">
+                    Select a clear, well-lit image of your clothing item to begin intelligent analysis.
+                </p>
+
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="upload-box" onclick="document.getElementById('imageInput').click()">
+                        <div class="upload-content" id="preview">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 16V4M12 4L7 9M12 4L17 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M5 20H19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                            </svg>
+
+                            <h3>
+                                Upload clothing photograph
+                            </h3>
+                            <p>
+                                Drag and drop your image here or click to browse local files
+                            </p>
+                            <span>
+                                Supports JPG, PNG up to 10MB
+                            </span>
+                        </div>
+
+                        <input
+                            id="imageInput"
+                            type="file"
+                            name="image"
+                            accept="image/*"
+                            hidden
+                            required
+                        >
+                    </div>
+
+                    <button type="submit" class="analyze-btn">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Analyze & Save Item
+                    </button>
+                </form>
+            </div>
+
+            <!-- Feature Badges -->
+            <div class="ai-features">
+                <div class="ai-feature-card">
+                    <strong>AI Tagging</strong>
+                    Category & Color
+                </div>
+                <div class="ai-feature-card">
+                    <strong>Matching</strong>
+                    Smart Look Pairing
+                </div>
+                <div class="ai-feature-card">
+                    <strong>Weather</strong>
+                    Seasonal Context
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+const input = document.getElementById("imageInput");
+const preview = document.getElementById("preview");
+
+input.addEventListener("change", function(){
+    const file = this.files[0];
+    if(file){
+        const reader = new FileReader();
+        reader.onload = function(e){
+            preview.innerHTML = `
+                <img src="${e.target.result}" class="preview-image">
+                <p style="margin-top: 6px; font-weight: 500; color: var(--text-main); font-size: 0.85rem;">Image loaded successfully</p>
+                <span>Click or drop a different image to replace</span>
+            `;
+        }
+        reader.readAsDataURL(file);
+    }
+});
+</script>
+{% endblock %}
