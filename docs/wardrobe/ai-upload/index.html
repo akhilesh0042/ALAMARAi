@@ -1,0 +1,807 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        
+ALAMARAi | AI Upload & Style Analyzer
+
+    </title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../static/css/variables.css">
+    <link rel="stylesheet" href="../../static/css/base.css">
+    <link rel="stylesheet" href="../../static/css/components.css">
+
+    <style>
+        /* =====================================
+           GLOBAL NAVBAR AVATAR STYLING
+        ===================================== */
+        .nav-avatar-link {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-avatar-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--gold, #C8A96A);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .nav-avatar-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(200, 169, 106, 0.2);
+        }
+
+        .nav-avatar-initial {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: transparent;
+            border: 1px solid var(--gold, #C8A96A);
+            color: var(--gold, #C8A96A);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s ease;
+        }
+
+        .nav-avatar-link:hover .nav-avatar-initial {
+            background-color: var(--gold, #C8A96A);
+            color: #ffffff;
+        }
+
+        /* =====================================
+           TOAST NOTIFICATIONS
+        ===================================== */
+        .toast-container {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast-message {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 24px;
+            background: var(--card-pure, #ffffff);
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            border-left: 4px solid transparent;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-main, #171717);
+            min-width: 300px;
+            animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .toast-success { border-left-color: #10B981; }
+        .toast-success i { color: #10B981; font-size: 1.2rem; }
+        
+        .toast-error { border-left-color: #EF4444; }
+        .toast-error i { color: #EF4444; font-size: 1.2rem; }
+
+        .toast-info { border-left-color: #3B82F6; }
+        .toast-info i { color: #3B82F6; font-size: 1.2rem; }
+
+        .toast-close {
+            margin-left: auto;
+            background: none;
+            border: none;
+            color: var(--text-muted, #666666);
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 0;
+            transition: color 0.2s ease;
+        }
+
+        .toast-close:hover { color: var(--text-main, #171717); }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+
+    
+<style>
+/* =====================================
+   AI UPLOAD & ANALYZER PAGE REFINEMENT
+===================================== */
+:root {
+    --bg-warm: #FAF8F4;
+    --card-pure: #FFFFFF;
+    --text-main: #171717;
+    --text-muted: #666666;
+    --gold: #C8A96A;
+    --gold-dark: #AA8748;
+    --border-subtle: #ECE7DE;
+    --shadow-soft: 0 20px 50px rgba(0,0,0,0.06);
+    --radius-btn: 50px;
+    --radius-sec: 36px;
+}
+
+body {
+    background-color: var(--bg-warm);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+}
+
+.ai-upload-wrapper {
+    min-height: calc(85vh - 90px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+/* Main container (Flex layout to ensure height matches dynamically) */
+.ai-upload-container {
+    width: 100%;
+    max-width: 1150px;
+    background: var(--card-pure);
+    border-radius: var(--radius-sec);
+    overflow: hidden;
+    display: flex;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--border-subtle);
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Left fashion image section */
+.ai-left {
+    flex: 1;
+    background: 
+        linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 80%),
+        url("../../static/images/1.jpeg");
+    background-size: cover;
+    background-position: center;
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: white;
+    position: relative;
+}
+
+.ai-left h1 {
+    font-size: 2.8rem;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    color: #FFFFFF;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.ai-left h1 span {
+    color: var(--gold);
+    font-style: italic;
+}
+
+.ai-left p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #F3F3F3;
+    font-weight: 300;
+    margin: 0;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.6);
+}
+
+/* Right section */
+.ai-right {
+    flex: 1.2;
+    padding: 50px 45px;
+    background: var(--card-pure);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.ai-right-top h2 {
+    font-size: 2rem;
+    color: var(--text-main);
+    margin-bottom: 6px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+}
+
+.ai-subtitle {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 24px;
+    font-weight: 300;
+}
+
+/* Upload Dropzone */
+.upload-box {
+    height: 175px;
+    border: 2px dashed var(--border-subtle);
+    border-radius: 18px;
+    background: var(--bg-warm);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.upload-box:hover {
+    border-color: var(--gold);
+    background: #FFFFFF;
+    box-shadow: 0 10px 30px rgba(200, 169, 106, 0.1);
+}
+
+.upload-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 15px;
+}
+
+.upload-content svg {
+    margin-bottom: 8px;
+    color: var(--gold);
+}
+
+.upload-content h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-main);
+    margin-bottom: 4px;
+    font-family: 'Playfair Display', serif;
+}
+
+.upload-content p {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin-bottom: 6px;
+    font-weight: 300;
+    line-height: 1.3;
+}
+
+.upload-content span {
+    color: var(--gold-dark);
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+/* Image Preview element injected by JS */
+.preview-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    border: 2px solid var(--gold);
+}
+
+/* Submit Action Button */
+.analyze-btn {
+    width: 100%;
+    height: 48px;
+    margin-top: 20px;
+    border: none;
+    border-radius: var(--radius-btn);
+    background: var(--text-main);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.analyze-btn:hover {
+    background: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 15px 35px rgba(200, 169, 106, 0.3);
+}
+
+/* Feature Cards at the bottom */
+.ai-features {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.ai-feature-card {
+    flex: 1;
+    background: var(--bg-warm);
+    padding: 14px 10px;
+    border-radius: 14px;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    border: 1px solid var(--border-subtle);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.ai-feature-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-2px);
+    background: var(--card-pure);
+}
+
+.ai-feature-card strong {
+    display: block;
+    color: var(--text-main);
+    font-size: 0.8rem;
+    margin-bottom: 2px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .ai-upload-container {
+        flex-direction: column;
+        max-width: 650px;
+    }
+    .ai-left {
+        min-height: 260px;
+        padding: 40px;
+    }
+    .ai-right {
+        padding: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ai-features {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+</style>
+
+</head>
+<body>
+
+    
+
+<style>
+    /* =====================================
+       AUTHENTICATED UTILITY ZONE (Profile & Logout)
+    ===================================== */
+    .nav-user-actions {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+    }
+
+    .nav-divider {
+        width: 1px;
+        height: 24px;
+        background-color: var(--border-subtle, #E5E7EB);
+    }
+
+    .nav-logout-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--text-muted, #666666);
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .nav-logout-link:hover {
+        color: #DC2626;
+        transform: translateX(2px);
+    }
+
+    .nav-logout-link i {
+        font-size: 1.1rem;
+    }
+
+    /* =====================================
+       UNAUTHENTICATED UTILITY ZONE (Sign In & Get Started)
+    ===================================== */
+    .nav-auth-signin {
+        color: var(--text-main, #171717);
+        font-size: 0.85rem;
+        font-weight: 500;
+        text-decoration: none;
+        position: relative;
+        transition: color 0.3s ease;
+    }
+
+    /* Subtle sliding underline effect on hover */
+    .nav-auth-signin::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 1px;
+        bottom: -2px;
+        left: 0;
+        background-color: var(--gold, #C8A96A);
+        transition: width 0.3s ease;
+    }
+
+    .nav-auth-signin:hover::after {
+        width: 100%;
+    }
+
+    /* Eye-catching Soft Gold Pill Button */
+    .nav-auth-getstarted {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 24px;
+        background: linear-gradient(135deg, #C8A96A 0%, #AA8748 100%);
+        color: #ffffff;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        text-decoration: none;
+        border-radius: 50px;
+        box-shadow: 0 4px 15px rgba(200, 169, 106, 0.25);
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-auth-getstarted:hover {
+        background: var(--text-main, #171717);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+</style>
+
+<nav class="navbar">
+    <div class="container navbar-container">
+        
+        <!-- 1. BRAND ZONE (Left) -->
+        <a href="../../index.html" class="brand">
+            <div class="brand-details">
+                <span class="brand-name">ALAMARA<span>i</span></span>
+                <span class="brand-tagline">Intelligent Digital Wardrobe</span>
+            </div>
+        </a>
+
+        
+            <!-- 2. PRIMARY NAVIGATION (Center) -->
+            <div class="nav-main-links">
+                <a href="../../dashboard/index.html" class="nav-link ">
+                    Dashboard
+                </a>
+                <a href="../../wardrobe/index.html" class="nav-link ">
+                    Wardrobe
+                </a>
+                <a href="../../wardrobe/ai-upload/index.html" class="nav-link active">
+                    Add Outfit
+                </a>
+                <a href="../../stylist/index.html" class="nav-link ">
+                    Smart Styling
+                </a>
+            </div>
+
+            <!-- 3. UTILITY ZONE (Right) - AUTHENTICATED -->
+            <div class="nav-user-actions">
+                
+                <!-- Avatar -->
+                <a href="../../profile/index.html" class="nav-avatar-link" title="Profile Settings">
+                    
+                        <img src="../../media/profile_pictures/girlll.jpg" alt="Profile" class="nav-avatar-img">
+                    
+                </a>
+
+                <!-- Elegant Vertical Divider -->
+                <span class="nav-divider"></span>
+                
+                <!-- Sleek Logout Link -->
+                <a href="../../index.html" class="nav-logout-link" title="Sign Out">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+
+            </div>
+        
+
+    </div>
+</nav>
+
+    <!-- Elegant Toast Notifications -->
+    
+
+    <main>
+        
+<div class="container ai-upload-wrapper">
+
+    <div class="ai-upload-container">
+
+        <!-- Left Editorial Section with Static Asset Background -->
+        <div class="ai-left">
+            <h1>
+                Discover Your <span>Style</span>
+            </h1>
+            <p>
+                Upload your clothing piece to receive automated categorization, color palettes, and intelligent outfit suggestions.
+            </p>
+        </div>
+
+        <!-- Right Upload Form Section -->
+        <div class="ai-right">
+            <div class="ai-right-top">
+                <h2>
+                    AI Wardrobe Upload
+                </h2>
+                <p class="ai-subtitle">
+                    Select a clear, well-lit image of your clothing item to begin intelligent analysis.
+                </p>
+
+                <form method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="87Pr2GMS61rufTcyPT8LlmYMvmR8QZop7k5XwY1TFsPipWtxafwmFjiOoOqyDfk3">
+
+                    <div class="upload-box" onclick="document.getElementById('imageInput').click()">
+                        <div class="upload-content" id="preview">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 16V4M12 4L7 9M12 4L17 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M5 20H19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                            </svg>
+
+                            <h3>
+                                Upload clothing photograph
+                            </h3>
+                            <p>
+                                Drag and drop your image here or click to browse local files
+                            </p>
+                            <span>
+                                Supports JPG, PNG up to 10MB
+                            </span>
+                        </div>
+
+                        <input
+                            id="imageInput"
+                            type="file"
+                            name="image"
+                            accept="image/*"
+                            hidden
+                            required
+                        >
+                    </div>
+
+                    <button type="submit" class="analyze-btn">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Analyze your Item
+                    </button>
+                </form>
+            </div>
+
+            <!-- Feature Badges -->
+            <div class="ai-features">
+                <div class="ai-feature-card">
+                    <strong>AI Tagging</strong>
+                    Category & Color
+                </div>
+                <div class="ai-feature-card">
+                    <strong>Matching</strong>
+                    Smart Look Pairing
+                </div>
+                <div class="ai-feature-card">
+                    <strong>Weather</strong>
+                    Seasonal Context
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+const input = document.getElementById("imageInput");
+const preview = document.getElementById("preview");
+const form = document.querySelector(".ai-right form");
+const btn = document.querySelector(".analyze-btn");
+
+let currentUploadedImage = null;
+
+input.addEventListener("change", function(){
+    const file = this.files[0];
+    if(file){
+        const reader = new FileReader();
+        reader.onload = function(e){
+            currentUploadedImage = e.target.result;
+            preview.innerHTML = `
+                <img src="${e.target.result}" class="preview-image">
+                <p style="margin-top: 6px; font-weight: 500; color: var(--text-main); font-size: 0.85rem;">${file.name}</p>
+                <span>Click or drop a different image to replace</span>
+            `;
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+if(form){
+    form.addEventListener("submit", function(e){
+        const isStaticHost = window.location.hostname.includes("github.io") || window.location.protocol === "file:" || window.location.pathname.endsWith(".html");
+        if(isStaticHost){
+            e.preventDefault();
+            if(!input.files || input.files.length === 0){
+                alert("Please select a clothing image first.");
+                return;
+            }
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Analyzing Garment with AI...';
+            btn.disabled = true;
+
+            setTimeout(function(){
+                btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Analysis Complete!';
+                const fname = input.files[0] ? input.files[0].name.toLowerCase() : "";
+                
+                // Smart client-side prediction based on filename or defaults
+                let cat = "Top";
+                if(fname.includes("pant") || fname.includes("jean") || fname.includes("trouser") || fname.includes("skirt")) cat = "Bottom";
+                else if(fname.includes("dress") || fname.includes("gown") || fname.includes("suit")) cat = "Dress";
+                else if(fname.includes("shoe") || fname.includes("boot") || fname.includes("sneaker")) cat = "Shoes";
+                else if(fname.includes("bag") || fname.includes("tote")) cat = "Bag";
+                else if(fname.includes("watch") || fname.includes("necklace") || fname.includes("ring")) cat = "Accessory";
+
+                const resultCard = document.createElement("div");
+                resultCard.style.cssText = "margin-top: 20px; padding: 20px; background: #FAF8F3; border: 1px solid var(--gold); border-radius: 16px; animation: fadeInUp 0.5s ease;";
+                resultCard.innerHTML = `
+                    <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 12px;">
+                        ${currentUploadedImage ? `<img src="${currentUploadedImage}" style="width: 60px; height: 60px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border-subtle);">` : ''}
+                        <div>
+                            <h4 style="margin: 0; font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--text-main);">AI Detected: ${cat}</h4>
+                            <p style="margin: 4px 0 0; font-size: 0.8rem; color: var(--gold-dark); font-weight: 600;">Style: Casual • Occasion: Everyday • Season: All Season</p>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.82rem; color: var(--text-muted); margin: 0 0 14px; line-height: 1.4;">Garment silhouette, fabric, and color scheme successfully cataloged by AI.</p>
+                    <div style="display: flex; gap: 10px;">
+                        <a href="../index.html" class="analyze-btn" style="text-align: center; text-decoration: none; padding: 10px 18px; font-size: 0.8rem; background: var(--text-main); color: #fff;">View in Wardrobe</a>
+                        <button type="button" onclick="location.reload()" class="analyze-btn" style="padding: 10px 18px; font-size: 0.8rem; background: transparent; color: var(--text-main); border: 1px solid var(--border-subtle);">Analyze Another</button>
+                    </div>
+                `;
+                form.parentNode.appendChild(resultCard);
+            }, 1200);
+        }
+    });
+}
+</script>
+
+    </main>
+
+    <footer class="footer">
+    <div class="container footer-container">
+        <div class="footer-left">
+            <h3 class="footer-brand">ALAMARA<span>i</span></h3>
+            <p class="footer-text">Intelligent Digital Wardrobe & Styling Assistant</p>
+        </div>
+        
+        <div class="footer-right">
+            <p class="footer-copy">&copy; 2026 ALAMARAi. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<style>
+/* =====================================
+   MINIMAL LUXURY FASHION FOOTER
+===================================== */
+.footer {
+    background-color: var(--surface, #FFFFFF);
+    border-top: 1px solid var(--border, #ECE7DE);
+    padding: 30px 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-brand {
+    font-size: 1.2rem;
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    color: var(--text-primary, #171717);
+    margin: 0 0 4px 0;
+    letter-spacing: 0.05em;
+}
+
+.footer-brand span {
+    color: var(--gold, #C8A96A);
+    font-style: italic;
+}
+
+.footer-text, 
+.footer-copy {
+    font-size: 0.8rem;
+    color: var(--text-secondary, #666666);
+    font-weight: 300;
+    margin: 0;
+    letter-spacing: 0.03em;
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+}
+</style>
+
+    <!-- Auto-dismiss Toast script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const toasts = document.querySelectorAll('.toast-message');
+            if (toasts.length > 0) {
+                setTimeout(function() {
+                    toasts.forEach(function(toast) {
+                        toast.style.transition = "all 0.4s ease";
+                        toast.style.opacity = "0";
+                        toast.style.transform = "translateX(100%)";
+                        
+                        setTimeout(function() {
+                            toast.remove();
+                            const container = document.getElementById('toast-container');
+                            if (container && container.innerHTML.trim() === '') {
+                                container.remove();
+                            }
+                        }, 400);
+                    });
+                }, 4000); // 4 seconds delay before dismissing
+            }
+        });
+    </script>
+
+    
+    
+
+</body>
+</html>

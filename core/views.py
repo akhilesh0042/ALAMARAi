@@ -89,37 +89,37 @@ def home(request):
         "wind": "--",
     }
 
-    try:
+    if settings.OPENWEATHER_API_KEY:
+        try:
+            response = requests.get(
+                "https://api.openweathermap.org/data/2.5/weather",
+                params={
+                    "q": settings.CITY,
+                    "appid": settings.OPENWEATHER_API_KEY,
+                    "units": "metric",
+                },
+                timeout=3,
+            )
 
-        response = requests.get(
-            "https://api.openweathermap.org/data/2.5/weather",
-            params={
-                "q": settings.CITY,
-                "appid": settings.OPENWEATHER_API_KEY,
-                "units": "metric",
-            },
-            timeout=5,
-        )
+            if response.status_code == 200:
 
-        if response.status_code == 200:
+                data = response.json()
 
-            data = response.json()
+                weather = {
+                    "city": data["name"],
+                    "temperature": round(
+                        data["main"]["temp"]
+                    ),
+                    "condition": data["weather"][0]["main"],
+                    "icon": data["weather"][0]["icon"],
+                    "humidity": data["main"]["humidity"],
+                    "wind": round(
+                        data["wind"]["speed"] * 3.6
+                    ),
+                }
 
-            weather = {
-                "city": data["name"],
-                "temperature": round(
-                    data["main"]["temp"]
-                ),
-                "condition": data["weather"][0]["main"],
-                "icon": data["weather"][0]["icon"],
-                "humidity": data["main"]["humidity"],
-                "wind": round(
-                    data["wind"]["speed"] * 3.6
-                ),
-            }
-
-    except Exception:
-        pass
+        except Exception:
+            pass
 
     # -----------------------------------
     # Category Counts
