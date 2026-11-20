@@ -27,7 +27,7 @@ SECRET_KEY = os.getenv(
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
 
 # -------------------------------------------------
 # Installed Apps
@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
     # Local Apps
-    "accounts",
+    "accounts.apps.AccountsConfig",
     "core",
     "dashboard",
     "wardrobe",

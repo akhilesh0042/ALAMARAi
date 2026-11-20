@@ -144,7 +144,7 @@ body {
 }
 
 /* =====================================
-   1. WELCOME HERO
+1. WELCOME HERO
 ===================================== */
 .dashboard-hero {
     display: grid;
@@ -216,11 +216,11 @@ body {
 }
 
 /* =====================================
-   2. WARDROBE STATISTICS
+2. WARDROBE STATISTICS
 ===================================== */
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 24px;
 }
 
@@ -264,7 +264,7 @@ body {
 }
 
 /* =====================================
-   3. WARDROBE CATEGORIES
+3. WARDROBE CATEGORIES (EDITORIAL)
 ===================================== */
 .categories-grid {
     display: grid;
@@ -298,19 +298,30 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 3rem;
-    color: var(--border-subtle);
-    transition: background-color 0.4s ease;
-    overflow: hidden; /* Added to keep image inside radius */
+    overflow: hidden;
     position: relative;
 }
 
-/* Added dynamically crop and fit category images */
 .cat-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Editorial Placeholder Styling */
+.placeholder-img {
+    filter: grayscale(100%) opacity(0.3);
+    mix-blend-mode: multiply;
+}
+
+.category-card:hover .cat-image img {
+    transform: scale(1.05);
+}
+
+.category-card:hover .placeholder-img {
+    filter: grayscale(100%) opacity(0.5); /* Slight darkening on hover */
 }
 
 .cat-info {
@@ -352,7 +363,7 @@ body {
 }
 
 /* =====================================
-   4. WARDROBE DISTRIBUTION
+4. WARDROBE DISTRIBUTION
 ===================================== */
 .distribution-card {
     background: var(--card-pure);
@@ -371,7 +382,7 @@ body {
 .dist-row:last-child { margin-bottom: 0; }
 
 .dist-label {
-    width: 120px;
+    width: 130px;
     font-size: 0.85rem;
     font-weight: 600;
     color: var(--text-main);
@@ -392,6 +403,7 @@ body {
     height: 100%;
     background: var(--gold);
     border-radius: 4px;
+    transition: width 1s ease-in-out;
 }
 
 .dist-count {
@@ -404,7 +416,7 @@ body {
 }
 
 /* =====================================
-   5. RECENTLY ADDED (Horizontal)
+5. RECENTLY ADDED (Horizontal)
 ===================================== */
 .recent-grid {
     display: grid;
@@ -461,7 +473,7 @@ body {
 }
 
 /* =====================================
-   6. WARDROBE INSIGHTS
+6. WARDROBE INSIGHTS
 ===================================== */
 .insights-card {
     background: var(--card-pure);
@@ -512,6 +524,8 @@ body {
     padding: 40px;
     box-shadow: var(--shadow-soft);
     transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
 }
 
 .weather-header {
@@ -573,6 +587,40 @@ body {
     color: var(--text-main);
 }
 
+/* Weather-Based Styling Suggestion Box */
+.weather-suggestion-box {
+    margin-top: 24px;
+    background: var(--bg-warm);
+    border: 1px dashed var(--gold);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.weather-suggestion-box i {
+    color: var(--gold);
+    font-size: 1.2rem;
+    margin-top: 2px;
+}
+
+.weather-suggestion-content h4 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 4px 0;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.weather-suggestion-content p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.4;
+}
+
 /* Timeline */
 .activity-widget {
     background: var(--card-pure);
@@ -622,7 +670,7 @@ body {
 }
 
 /* =====================================
-   9. SMART STYLING BANNER
+9. SMART STYLING BANNER
 ===================================== */
 .styling-banner {
     background: linear-gradient(135deg, #1A1A1A 0%, #2D2D2D 100%);
@@ -672,7 +720,7 @@ body {
 }
 
 /* =====================================
-   10. QUICK ACTIONS
+10. QUICK ACTIONS
 ===================================== */
 .quick-actions {
     display: grid;
@@ -755,7 +803,6 @@ body {
         </div>
     </div>
     <div class="hero-image-card">
-        <!-- Placeholder for a premium fashion/wardrobe aesthetic image -->
         <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=800&q=80" alt="Premium Wardrobe Display">
     </div>
 </section>
@@ -766,11 +813,6 @@ body {
         <i class="fa-solid fa-shirt"></i>
         <h2>{{ total_items|default:"0" }}</h2>
         <p>Total Items</p>
-    </div>
-    <div class="stat-card">
-        <i class="fa-solid fa-heart"></i>
-        <h2>{{ favourites|default:"0" }}</h2>
-        <p>Favorites</p>
     </div>
     <div class="stat-card">
         <i class="fa-solid fa-layer-group"></i>
@@ -784,18 +826,19 @@ body {
     </div>
 </section>
 
-<!-- 3. WARDROBE CATEGORIES -->
+<!-- 3. WARDROBE CATEGORIES (UNISEX EDITORIAL PLACEHOLDERS) -->
 <div class="section-title animate-in delay-2">
     <h2>Wardrobe Categories</h2>
 </div>
 <section class="categories-grid animate-in delay-2">
+    
     <!-- Category: Tops -->
     <div class="category-card">
         <div class="cat-image">
             {% if latest_top and latest_top.image %}
                 <img src="{{ latest_top.image.url }}" alt="Recent Top">
             {% else %}
-                <i class="fa-solid fa-shirt"></i>
+                <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=500&q=80" alt="Tops Placeholder" class="placeholder-img">
             {% endif %}
         </div>
         <div class="cat-info">
@@ -813,7 +856,7 @@ body {
             {% if latest_bottom and latest_bottom.image %}
                 <img src="{{ latest_bottom.image.url }}" alt="Recent Bottom">
             {% else %}
-                <i class="fa-solid fa-socks"></i>
+                <img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=500&q=80" alt="Bottoms Placeholder" class="placeholder-img">
             {% endif %}
         </div>
         <div class="cat-info">
@@ -825,18 +868,19 @@ body {
         </div>
     </div>
     
-    <!-- Category: Dresses -->
+    <!-- Category: One-Pieces -->
     <div class="category-card">
         <div class="cat-image">
             {% if latest_dress and latest_dress.image %}
-                <img src="{{ latest_dress.image.url }}" alt="Recent Dress">
+                <img src="{{ latest_dress.image.url }}" alt="Recent One-Piece">
             {% else %}
-                <i class="fa-solid fa-person-dress"></i>
+                <!-- Neutral minimalist clothing rack for one-pieces/suits -->
+                <img src="https://images.unsplash.com/photo-1532453288672-3a27e9be9efd?auto=format&fit=crop&w=500&q=80" alt="One-Pieces Placeholder" class="placeholder-img">
             {% endif %}
         </div>
         <div class="cat-info">
             <div>
-                <h3>Dresses</h3>
+                <h3>One-Pieces</h3>
                 <p>{{ count_dresses|default:"0" }} Items</p>
             </div>
             <a href="{% url 'wardrobe' %}?category=dresses" class="cat-btn"><i class="fa-solid fa-arrow-right"></i></a>
@@ -849,7 +893,7 @@ body {
             {% if latest_shoes and latest_shoes.image %}
                 <img src="{{ latest_shoes.image.url }}" alt="Recent Shoe">
             {% else %}
-                <i class="fa-solid fa-shoe-prints"></i>
+                <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=500&q=80" alt="Shoes Placeholder" class="placeholder-img">
             {% endif %}
         </div>
         <div class="cat-info">
@@ -867,7 +911,8 @@ body {
             {% if latest_bag and latest_bag.image %}
                 <img src="{{ latest_bag.image.url }}" alt="Recent Bag">
             {% else %}
-                <i class="fa-solid fa-suitcase"></i>
+                <!-- Neutral structural tote bag -->
+                <img src="https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=500&q=80" alt="Bags Placeholder" class="placeholder-img">
             {% endif %}
         </div>
         <div class="cat-info">
@@ -885,7 +930,8 @@ body {
             {% if latest_accessory and latest_accessory.image %}
                 <img src="{{ latest_accessory.image.url }}" alt="Recent Accessory">
             {% else %}
-                <i class="fa-solid fa-glasses"></i>
+                <!-- Neutral premium sunglasses -->
+                <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=500&q=80" alt="Accessories Placeholder" class="placeholder-img">
             {% endif %}
         </div>
         <div class="cat-info">
@@ -903,26 +949,67 @@ body {
     <h2>Wardrobe Distribution</h2>
 </div>
 <section class="distribution-card animate-in delay-2">
+    
     <div class="dist-row">
         <div class="dist-label">Tops</div>
-        <div class="dist-bar-wrap"><div class="dist-bar-fill" style="width: {{ dist_tops|default:'0' }}%;"></div></div>
+        <div class="dist-bar-wrap">
+            {% if count_tops > 0 %}
+                <div class="dist-bar-fill" style="width: {% widthratio count_tops total_items 100 %}%;"></div>
+            {% endif %}
+        </div>
         <div class="dist-count">{{ count_tops|default:"0" }}</div>
     </div>
+    
     <div class="dist-row">
         <div class="dist-label">Bottoms</div>
-        <div class="dist-bar-wrap"><div class="dist-bar-fill" style="width: {{ dist_bottoms|default:'0' }}%;"></div></div>
+        <div class="dist-bar-wrap">
+            {% if count_bottoms > 0 %}
+                <div class="dist-bar-fill" style="width: {% widthratio count_bottoms total_items 100 %}%;"></div>
+            {% endif %}
+        </div>
         <div class="dist-count">{{ count_bottoms|default:"0" }}</div>
     </div>
+    
+    <div class="dist-row">
+        <div class="dist-label">One-Pieces</div>
+        <div class="dist-bar-wrap">
+            {% if count_dresses > 0 %}
+                <div class="dist-bar-fill" style="width: {% widthratio count_dresses total_items 100 %}%;"></div>
+            {% endif %}
+        </div>
+        <div class="dist-count">{{ count_dresses|default:"0" }}</div>
+    </div>
+    
     <div class="dist-row">
         <div class="dist-label">Shoes</div>
-        <div class="dist-bar-wrap"><div class="dist-bar-fill" style="width: {{ dist_shoes|default:'0' }}%;"></div></div>
+        <div class="dist-bar-wrap">
+            {% if count_shoes > 0 %}
+                <div class="dist-bar-fill" style="width: {% widthratio count_shoes total_items 100 %}%;"></div>
+            {% endif %}
+        </div>
         <div class="dist-count">{{ count_shoes|default:"0" }}</div>
     </div>
+    
+    <div class="dist-row">
+        <div class="dist-label">Bags</div>
+        <div class="dist-bar-wrap">
+            {% if count_bags > 0 %}
+                <div class="dist-bar-fill" style="width: {% widthratio count_bags total_items 100 %}%;"></div>
+            {% endif %}
+        </div>
+        <div class="dist-count">{{ count_bags|default:"0" }}</div>
+    </div>
+    
     <div class="dist-row">
         <div class="dist-label">Accessories</div>
-        <div class="dist-bar-wrap"><div class="dist-bar-fill" style="width: {{ dist_accessories|default:'0' }}%;"></div></div>
+        <div class="dist-bar-wrap">
+            {% if count_accessories > 0 %}
+                <div class="dist-bar-fill" style="width: {% widthratio count_accessories total_items 100 %}%;"></div>
+            {% endif %}
+        </div>
         <div class="dist-count">{{ count_accessories|default:"0" }}</div>
     </div>
+    
 </section>
 
 <!-- 5. RECENTLY ADDED -->
@@ -976,7 +1063,7 @@ body {
 </div>
 <section class="split-grid animate-in delay-3">
     
-    <!-- 7. Weather -->
+    <!-- 7. Weather with Current Weather Suggestion Sub-Widget -->
     <div class="weather-widget">
         <div class="weather-header">
             <span>Current Weather</span>
@@ -987,11 +1074,21 @@ body {
                 <h2>{{ weather.temperature|default:"28" }}°C</h2>
                 <p>{{ weather.condition|default:"Sunny" }}</p>
             </div>
-            {% if weather.icon %}
-            <img src="https://openweathermap.org/img/wn/{{ weather.icon }}@2x.png" alt="Weather" style="width: 100px;">
-            {% else %}
-            <i class="fa-solid fa-sun" style="font-size: 4.5rem; color: var(--gold);"></i>
-            {% endif %}
+            {% with cond=weather.condition|lower %}
+                {% if 'rain' in cond or 'drizzle' in cond %}
+                    <i class="fa-solid fa-cloud-rain" style="font-size: 4rem; color: var(--gold);"></i>
+                {% elif 'storm' in cond or 'thunder' in cond %}
+                    <i class="fa-solid fa-cloud-bolt" style="font-size: 4rem; color: var(--gold);"></i>
+                {% elif 'cloud' in cond %}
+                    <i class="fa-solid fa-cloud" style="font-size: 4rem; color: var(--gold);"></i>
+                {% elif 'mist' in cond or 'haze' in cond or 'fog' in cond %}
+                    <i class="fa-solid fa-smog" style="font-size: 4rem; color: var(--gold);"></i>
+                {% elif weather.icon and 'n' in weather.icon %}
+                    <i class="fa-solid fa-moon" style="font-size: 4rem; color: var(--gold);"></i>
+                {% else %}
+                    <i class="fa-solid fa-sun" style="font-size: 4.5rem; color: var(--gold);"></i>
+                {% endif %}
+            {% endwith %}
         </div>
         <div class="weather-details">
             <div class="w-detail">
@@ -1002,6 +1099,80 @@ body {
                 <span>Wind</span>
                 <span>{{ weather.wind|default:"9" }} km/h</span>
             </div>
+        </div>
+
+       <div class="weather-suggestion-box">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+        <div class="weather-suggestion-content">
+            <h4>Weather Styling Tip</h4>
+          <p>
+        {% now "j" as current_day %}
+        
+        <!-- 1. CHECK FOR RAIN FIRST -->
+        {% if 'rain' in weather.condition|lower or 'drizzle' in weather.condition|lower or 'storm' in weather.condition|lower %}
+            It is currently {{ weather.temperature }}°C with {{ weather.condition|lower }}. Don't forget your umbrella or a water-resistant layer! 
+            {% if latest_top %}
+                A practical choice today would be your <strong>{{ latest_top.name }}</strong> paired with dark, easy-to-dry bottoms. Avoid long hems like wide-leg jeans that might drag in puddles.
+            {% else %}
+                Opt for dark, quick-drying fabrics, cropped hems, and definitely avoid suede footwear today.
+            {% endif %}
+            
+        <!-- 2. CHECK FOR HEAT -->
+        {% elif weather.temperature > 30 %}
+            {% if current_day|divisibleby:"2" %}
+                It is currently {{ weather.temperature }}°C and {{ weather.condition|lower }}, making it a very hot day. Stick to lightweight, breathable fabrics like cotton or linen.
+                {% if latest_top %}
+                    Consider wearing your <strong>{{ latest_top.color|default:'' }} {{ latest_top.name }}</strong> to stay comfortable.
+                {% else %}
+                    A loose-fitting top paired with breathable footwear is perfect for today.
+                {% endif %}
+            {% else %}
+                With temperatures hitting {{ weather.temperature }}°C, the heat is intense today. Loose silhouettes and light colors will help reflect the sun.
+                {% if latest_bottom %}
+                    Your <strong>{{ latest_bottom.color|default:'' }} {{ latest_bottom.name }}</strong> would be an excellent, effortless choice.
+                {% else %}
+                    Opt for shorts or relaxed-fit bottoms to beat the heat.
+                {% endif %}
+            {% endif %}
+            
+        <!-- 3. CHECK FOR COLD -->
+        {% elif weather.temperature < 20 %}
+            {% if current_day|divisibleby:"2" %}
+                It's a chilly {{ weather.temperature }}°C outside with {{ weather.condition|lower }}. Layering is key to staying warm today.
+                {% if latest_top and latest_bottom %}
+                    Start with a solid base like your <strong>{{ latest_top.color|default:'' }} {{ latest_top.name }}</strong> and pair it with your <strong>{{ latest_bottom.color|default:'' }} {{ latest_bottom.name }}</strong>.
+                {% else %}
+                    Start with a cozy long-sleeve base and pair it with warm, thick trousers.
+                {% endif %}
+            {% else %}
+                The weather is quite brisk at {{ weather.temperature }}°C. Insulating materials and good coverage will serve you best.
+                {% if latest_shoes and latest_bottom %}
+                    Keep your feet warm in your <strong>{{ latest_shoes.color|default:'' }} {{ latest_shoes.name }}</strong> and style them with your <strong>{{ latest_bottom.name }}</strong>.
+                {% else %}
+                    Keep your feet warm in sturdy closed shoes and style them with heavier pants.
+                {% endif %}
+            {% endif %}
+            
+        <!-- 4. MILD/COMFORTABLE FALLBACK -->
+        {% else %}
+            {% if current_day|divisibleby:"2" %}
+                Today brings a comfortable {{ weather.temperature }}°C ({{ weather.condition|lower }}). It's the perfect weather for classic, versatile outfits without heavy layers.
+                {% if latest_top and latest_bottom %}
+                    Why not put together your <strong>{{ latest_top.color|default:'' }} {{ latest_top.name }}</strong> and <strong>{{ latest_bottom.name }}</strong>?
+                {% else %}
+                    A classic casual top and your favorite comfortable bottoms will work perfectly.
+                {% endif %}
+            {% else %}
+                At {{ weather.temperature }}°C, it's beautifully mild outside. Transition pieces and light layering work wonderfully right now.
+                {% if latest_top %}
+                    A lightweight jacket or overshirt worn over your <strong>{{ latest_top.color|default:'' }} {{ latest_top.name }}</strong> would make a balanced look.
+                {% else %}
+                    A light jacket over a comfortable base layer gives you the flexibility you need today.
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    </p>
+</div>
         </div>
     </div>
 

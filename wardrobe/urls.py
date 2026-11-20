@@ -4,7 +4,7 @@ from . import views
 urlpatterns = [
     path('', views.wardrobe, name='wardrobe'),
 
-    path('upload/', views.upload_item, name='upload'),
+    path('upload/', views.ai_upload, name='upload'),
 
     path('ai-upload/', views.ai_upload, name='ai_upload'),
 

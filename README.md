@@ -1,59 +1,45 @@
-# ALAMARAi - Fashion Outfit Analyzer
+# Fashion Outfit Analyzer
 
-A Django-based fashion management and styling platform powered by AI that allows users to upload clothing images, organize their digital wardrobe, and receive smart outfit insights and recommendations.
+A Django-based fashion management platform that allows users to upload clothing images, organize their digital wardrobe, and receive outfit insights.
 
 ## Features
 
-- User Authentication & Profiles
+- User Authentication
 - Digital Wardrobe Management
-- AI Clothing Image Analysis & Detection
-- Color Matching & Occasion-based Recommendation Engine
-- Smart Weather-based Stylist
-- Shopping & Outfit Exploration
+- Clothing Image Upload
+- Clothing Details Management
 - Search and Filtering
+- Outfit Analysis
+- Fashion Recommendations
 
 ## Tech Stack
 
-**Frontend:**
-- HTML5, CSS3, JavaScript
-- Bootstrap / Modern Glassmorphic UI
+Frontend:
+HTML
+CSS
+Bootstrap
 
-**Backend:**
-- Python & Django
-- SQLite / MySQL
+Backend:
+Python Django
 
-**AI & Analytics:**
-- Computer Vision & Gemini AI for clothing and color analysis
+Database:
+SQLite / MySQL
 
-## Installation & Setup
+AI:
+Computer Vision based clothing analysis
 
-1. Clone the repository:
-```bash
-git clone https://github.com/akhilesh0042/ALAMARAi.git
-cd ALAMARAi
-```
+## Installation
 
-2. Create and activate a virtual environment:
-```bash
-python -m venv env
-# On Windows:
-env\Scripts\activate
-# On macOS/Linux:
-source env/bin/activate
-```
+cd fashion-outfit-analyzer
 
-3. Install dependencies:
-```bash
+python -m venv venv
+
+venv\Scripts\activate
+
 pip install -r requirements.txt
-```
 
-4. Run migrations:
-```bash
 python manage.py makemigrations
 python manage.py migrate
-```
 
-5. Run the development server:
-```bash
 python manage.py runserver
-```
+
