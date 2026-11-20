@@ -639,7 +639,7 @@ body {
                 <p class="auth-subtitle">Log in to continue your intelligent fashion journey.</p>
 
                 <form method="POST">
-                    <input type="hidden" name="csrfmiddlewaretoken" value="2dDUZOKPOywWpRte7rXU88bCPzSKtvNJEN5YS4fnQ3ZOY8TeNv6mNQ3aY69HHb9p">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="qVyzYvwywFDh9rCIvJnKuabjZq4gZ34N9GAgflbmPKXuGNftJp2YjxxmoSrxap3d">
 
                     <!-- Username Field -->
                     <div class="form-group">
@@ -785,6 +785,48 @@ function showPassword(){
         icon.style.color = "#94A3B8";
     }
 }
+
+// Client-side authentication simulation for static hosting (e.g. GitHub Pages) where HTTP POST is unsupported (405 Not Allowed)
+(function() {
+    const isStaticHost = window.location.hostname.includes("github.io") || window.location.protocol === "file:" || window.location.pathname.endsWith(".html");
+    if (isStaticHost) {
+        const form = document.querySelector(".form-wrapper form");
+        if (form) {
+            form.addEventListener("submit", function(e) {
+                e.preventDefault();
+                const usernameInput = document.querySelector('input[name="username"]');
+                const passwordInput = document.querySelector('input[name="password"]');
+                const username = usernameInput ? usernameInput.value.trim() : "admin";
+                const password = passwordInput ? passwordInput.value : "";
+
+                const btn = document.querySelector(".auth-submit-btn");
+                if (btn) {
+                    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Signing in...';
+                    btn.disabled = true;
+                }
+
+                // Known registered user accounts
+                const validUsers = ["mypro", "admin", "mcamini", "laxx", "amritha", "amrz", "aparna@1", "maya", "kiran"];
+                const isKnownUser = validUsers.includes(username.toLowerCase());
+
+                setTimeout(function() {
+                    if (isKnownUser || password.length >= 6) {
+                        try {
+                            localStorage.setItem("alamarai_user", username);
+                        } catch (err) {}
+                        window.location.href = "../../dashboard/index.html";
+                    } else {
+                        if (btn) {
+                            btn.innerHTML = 'Sign In';
+                            btn.disabled = false;
+                        }
+                        alert("For testing on GitHub Pages, you can log in as 'admin' or 'mypro' with password 'password123'.");
+                    }
+                }, 500);
+            });
+        }
+    }
+})();
 </script>
 
 

@@ -682,7 +682,7 @@ html, body {
                 <p class="auth-subtitle">Start building your intelligent smart wardrobe.</p>
 
                 <form method="POST" id="signupForm">
-                    <input type="hidden" name="csrfmiddlewaretoken" value="MmFV60vFp7MdGCcJLVjNlprmlQiFaBEpoW7ZZg0drCf5fTCJrZsf07jUunzCoh05">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="mIAth3pitE3Zo3sH3XRAWq0OeSgDAvN05tCayT46MJncVp5shDwOLNmRDkDULRMq">
 
                     <!-- Username Field with Live Availability Check -->
                     <div class="form-group">
@@ -982,6 +982,32 @@ function togglePassword(input, icon) {
         eye.style.color = "#94A3B8";
     }
 }
+
+// Client-side signup simulation for static hosting (e.g. GitHub Pages) where HTTP POST is unsupported (405 Not Allowed)
+(function() {
+    const isStaticHost = window.location.hostname.includes("github.io") || window.location.protocol === "file:" || window.location.pathname.endsWith(".html");
+    if (isStaticHost) {
+        const form = document.getElementById("signupForm");
+        if (form) {
+            form.addEventListener("submit", function(e) {
+                e.preventDefault();
+                const usernameInput = document.getElementById("usernameInput");
+                const username = usernameInput ? usernameInput.value.trim() : "New User";
+                const btn = document.querySelector(".auth-submit-btn");
+                if (btn) {
+                    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Creating Account...';
+                    btn.disabled = true;
+                }
+                setTimeout(function() {
+                    try {
+                        localStorage.setItem("alamarai_user", username);
+                    } catch (err) {}
+                    window.location.href = "../../dashboard/index.html";
+                }, 600);
+            });
+        }
+    }
+})();
 </script>
 
 
