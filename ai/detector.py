@@ -1,8 +1,10 @@
 import os
 import json
+import re
 
 from dotenv import load_dotenv
 from google import genai
+from google.genai import types
 from PIL import Image
 
 
@@ -85,7 +87,23 @@ def detect_season(data):
 
 def analyze_image(image_path):
 
-    image = Image.open(image_path)
+    try:
+        with Image.open(image_path) as img:
+            image = img.convert("RGB")
+    except Exception as img_err:
+        print(f"Error opening image at {image_path}:", img_err)
+        return {
+            "name": "Unknown Item",
+            "category": "Top",
+            "brand": "Unknown",
+            "color": "Unknown",
+            "fabric": "Unknown",
+            "sleeves": "Not Applicable",
+            "season": "All Season",
+            "occasion": "Casual",
+            "style": "Casual",
+            "description": f"Failed to load image: {img_err}",
+        }
 
     prompt = """
 You are an expert fashion stylist and clothing classification AI.
@@ -445,24 +463,48 @@ FINAL RULES
         if not client:
             raise ValueError("GEMINI_API_KEY is not set or client could not be initialized.")
 
-        response = client.models.generate_content(
-            model="gemini-2.5-flash-lite",
-            contents=[
-                prompt,
-                image
-            ]
-        )
+        model_name = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
 
-        text = response.text.strip()
+        try:
+            config = types.GenerateContentConfig(response_mime_type="application/json")
+        except Exception:
+            config = None
 
-        # Remove markdown fences if Gemini accidentally adds them
-        text = (
-            text.replace("```json", "")
-            .replace("```", "")
-            .strip()
-        )
+        contents = [prompt, image]
+        try:
+            if config:
+                response = client.models.generate_content(
+                    model=model_name,
+                    contents=contents,
+                    config=config
+                )
+            else:
+                response = client.models.generate_content(
+                    model=model_name,
+                    contents=contents
+                )
+        except Exception as primary_err:
+            print(f"Model {model_name} failed ({primary_err}). Trying fallback to gemini-1.5-flash...")
+            response = client.models.generate_content(
+                model="gemini-1.5-flash",
+                contents=contents
+            )
 
-        result = json.loads(text)
+        raw_text = (response.text or "").strip()
+
+        # Extract JSON using regex to handle markdown or incidental text
+        match = re.search(r'\{.*\}', raw_text, re.DOTALL)
+        if match:
+            clean_text = match.group(0)
+        else:
+            clean_text = (
+                raw_text.replace("```json", "")
+                .replace("```JSON", "")
+                .replace("```", "")
+                .strip()
+            )
+
+        result = json.loads(clean_text)
 
         # -------------------------------------------------
         # SAFE DEFAULTS
@@ -592,3 +634,27 @@ FINAL RULES
             "style": "Casual",
             "description": "AI unavailable",
         }
+
+
+if __name__ == "__main__":
+    import sys
+    print("=" * 60)
+    print(" ALAMARAi Clothing Detector Diagnostic")
+    print("=" * 60)
+    api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        print("[-] GEMINI_API_KEY is NOT set in environment or .env file.")
+        print("    Add GEMINI_API_KEY=your_key_here to .env to enable AI clothing classification.")
+    else:
+        masked = api_key[:4] + "..." + api_key[-4:] if len(api_key) > 8 else "***"
+        print(f"[+] GEMINI_API_KEY is configured ({masked}).")
+
+    if len(sys.argv) > 1:
+        test_path = sys.argv[1]
+        print(f"\nAnalyzing test image: {test_path}")
+        analysis = analyze_image(test_path)
+        print("\nAnalysis Result:")
+        print(json.dumps(analysis, indent=2))
+    else:
+        print("\nTo test with an image, run:")
+        print('  python ai/detector.py "<path_to_image>"')
