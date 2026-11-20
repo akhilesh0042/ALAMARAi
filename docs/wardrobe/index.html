@@ -1,0 +1,2325 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        
+ALAMARAi | My Wardrobe
+
+    </title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./static/css/variables.css">
+    <link rel="stylesheet" href="./static/css/base.css">
+    <link rel="stylesheet" href="./static/css/components.css">
+
+    <style>
+        /* =====================================
+           GLOBAL NAVBAR AVATAR STYLING
+        ===================================== */
+        .nav-avatar-link {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-avatar-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--gold, #C8A96A);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .nav-avatar-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(200, 169, 106, 0.2);
+        }
+
+        .nav-avatar-initial {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: transparent;
+            border: 1px solid var(--gold, #C8A96A);
+            color: var(--gold, #C8A96A);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s ease;
+        }
+
+        .nav-avatar-link:hover .nav-avatar-initial {
+            background-color: var(--gold, #C8A96A);
+            color: #ffffff;
+        }
+
+        /* =====================================
+           TOAST NOTIFICATIONS
+        ===================================== */
+        .toast-container {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast-message {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 24px;
+            background: var(--card-pure, #ffffff);
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            border-left: 4px solid transparent;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-main, #171717);
+            min-width: 300px;
+            animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .toast-success { border-left-color: #10B981; }
+        .toast-success i { color: #10B981; font-size: 1.2rem; }
+        
+        .toast-error { border-left-color: #EF4444; }
+        .toast-error i { color: #EF4444; font-size: 1.2rem; }
+
+        .toast-info { border-left-color: #3B82F6; }
+        .toast-info i { color: #3B82F6; font-size: 1.2rem; }
+
+        .toast-close {
+            margin-left: auto;
+            background: none;
+            border: none;
+            color: var(--text-muted, #666666);
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 0;
+            transition: color 0.2s ease;
+        }
+
+        .toast-close:hover { color: var(--text-main, #171717); }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+
+    
+<style>
+/* =====================================
+   WARDROBE PAGE - LUXURY DESIGN SYSTEM
+===================================== */
+.wardrobe-page {
+    padding: 40px 0 100px;
+}
+
+/* --- Refined Editorial Header --- */
+.wardrobe-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 36px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 24px;
+}
+
+.wardrobe-header-content span {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.wardrobe-header h2 {
+    font-size: 2.8rem;
+    font-family: var(--font-heading);
+    color: var(--text-primary);
+    margin-bottom: 6px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+}
+
+.wardrobe-header p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin: 0;
+    font-weight: 300;
+}
+
+/* Counter Badge */
+.wardrobe-count-badge {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-secondary);
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+}
+
+.wardrobe-count-badge span {
+    color: var(--gold);
+    font-weight: 600;
+}
+
+/* --- Precision Filter Panel --- */
+.filter-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-bottom: 48px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.02);
+}
+
+.filter-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr auto;
+    gap: 16px;
+    align-items: center;
+}
+
+.filter-card .form-control,
+.filter-card .form-select {
+    background-color: var(--background);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    height: 48px;
+    width: 100%;
+}
+
+.filter-card .form-control:focus,
+.filter-card .form-select:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(200, 169, 106, 0.15);
+    background-color: var(--surface);
+    outline: none;
+}
+
+.search-btn {
+    background-color: var(--text-primary);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 0 28px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    white-space: nowrap;
+}
+
+.search-btn:hover {
+    background-color: var(--gold);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(200, 169, 106, 0.25);
+}
+
+/* --- Clothing Grid Layout (Updated to 4 Columns for smaller cards) --- */
+.wardrobe-grid-layout {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+.clothing-item-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.03);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.clothing-item-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.07);
+    border-color: var(--gold);
+}
+
+.card-img-wrapper {
+    position: relative;
+    width: 100%;
+    height: 260px; /* Reduced height to make cards compact */
+    background: #FAF8F3;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ensures the full outfit image fits completely without cropping */
+    padding: 10px;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.clothing-item-card:hover .card-img-wrapper img {
+    transform: scale(1.04);
+}
+
+.item-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(17, 17, 17, 0.85);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    font-size: 0.6rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+    z-index: 2;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.clothing-body {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.clothing-body h4 {
+    font-size: 1.2rem;
+    font-family: var(--font-heading);
+    margin-bottom: 10px;
+    color: var(--text-primary);
+    font-weight: 400;
+}
+
+/* --- Clean Typography Meta Tags --- */
+.meta-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.meta-tag {
+    background: var(--background);
+    border: 1px solid var(--border);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.clothing-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-top: auto;
+    font-weight: 300;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.clothing-footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* --- Modern Action Buttons --- */
+.btn-edit {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    padding: 6px 14px;
+    font-size: 0.7rem;
+    border-radius: 6px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+}
+
+.btn-edit:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(200, 169, 106, 0.03);
+}
+
+.btn-delete {
+    background: transparent;
+    border: 1px solid rgba(220, 53, 69, 0.2);
+    color: #dc3545;
+    padding: 6px 14px;
+    font-size: 0.7rem;
+    border-radius: 6px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+}
+
+.btn-delete:hover {
+    background: #dc3545;
+    color: #fff;
+    border-color: #dc3545;
+    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.25);
+}
+
+/* --- Empty State --- */
+.empty-wardrobe {
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 90px 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.empty-wardrobe h2 {
+    font-size: 2.2rem;
+    font-family: var(--font-heading);
+    margin-bottom: 12px;
+    font-weight: 400;
+    color: var(--text-primary);
+}
+
+.empty-wardrobe p {
+    color: var(--text-secondary);
+    margin-bottom: 0;
+    font-size: 0.95rem;
+    font-weight: 300;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 1400px) {
+    .wardrobe-grid-layout {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 1200px) {
+    .wardrobe-grid-layout {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .filter-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .filter-grid .search-btn {
+        grid-column: span 3;
+    }
+}
+
+@media (max-width: 768px) {
+    .wardrobe-grid-layout {
+        grid-template-columns: 1fr;
+    }
+    .filter-grid {
+        grid-template-columns: 1fr;
+    }
+    .filter-grid .search-btn {
+        grid-column: span 1;
+    }
+    .wardrobe-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+}
+</style>
+
+</head>
+<body>
+    <div style="background: linear-gradient(90deg, #111111, #1e1e1e); color: #C8A96A; text-align: center; padding: 10px 16px; font-size: 13px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; position: sticky; top: 0; z-index: 999999; border-bottom: 1px solid rgba(200,169,106,0.3); display: flex; align-items: center; justify-content: center; gap: 15px; flex-wrap: wrap;">
+        <span>✨ <strong>ALAMARAi Live Preview on GitHub Pages</strong> (43 Wardrobe Items Loaded)</span>
+        <div style="display: flex; gap: 10px;">
+            <a href="./dashboard/index.html" style="color: #fff; background: rgba(200,169,106,0.25); padding: 3px 10px; border-radius: 4px; text-decoration: none; font-size: 12px; border: 1px solid #C8A96A;">Dashboard</a>
+            <a href="./wardrobe/index.html" style="color: #fff; background: rgba(200,169,106,0.25); padding: 3px 10px; border-radius: 4px; text-decoration: none; font-size: 12px; border: 1px solid #C8A96A;">Wardrobe</a>
+            <a href="./stylist/index.html" style="color: #fff; background: rgba(200,169,106,0.25); padding: 3px 10px; border-radius: 4px; text-decoration: none; font-size: 12px; border: 1px solid #C8A96A;">Stylist</a>
+            <a href="https://github.com/akhilesh0042/ALAMARAi" target="_blank" style="color: #C8A96A; text-decoration: underline; font-size: 12px; margin-left: 5px;">GitHub Repo</a>
+        </div>
+    </div>
+    
+
+    
+
+<style>
+    /* =====================================
+       AUTHENTICATED UTILITY ZONE (Profile & Logout)
+    ===================================== */
+    .nav-user-actions {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+    }
+
+    .nav-divider {
+        width: 1px;
+        height: 24px;
+        background-color: var(--border-subtle, #E5E7EB);
+    }
+
+    .nav-logout-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--text-muted, #666666);
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .nav-logout-link:hover {
+        color: #DC2626;
+        transform: translateX(2px);
+    }
+
+    .nav-logout-link i {
+        font-size: 1.1rem;
+    }
+
+    /* =====================================
+       UNAUTHENTICATED UTILITY ZONE (Sign In & Get Started)
+    ===================================== */
+    .nav-auth-signin {
+        color: var(--text-main, #171717);
+        font-size: 0.85rem;
+        font-weight: 500;
+        text-decoration: none;
+        position: relative;
+        transition: color 0.3s ease;
+    }
+
+    /* Subtle sliding underline effect on hover */
+    .nav-auth-signin::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 1px;
+        bottom: -2px;
+        left: 0;
+        background-color: var(--gold, #C8A96A);
+        transition: width 0.3s ease;
+    }
+
+    .nav-auth-signin:hover::after {
+        width: 100%;
+    }
+
+    /* Eye-catching Soft Gold Pill Button */
+    .nav-auth-getstarted {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 24px;
+        background: linear-gradient(135deg, #C8A96A 0%, #AA8748 100%);
+        color: #ffffff;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        text-decoration: none;
+        border-radius: 50px;
+        box-shadow: 0 4px 15px rgba(200, 169, 106, 0.25);
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-auth-getstarted:hover {
+        background: var(--text-main, #171717);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+</style>
+
+<nav class="navbar">
+    <div class="container navbar-container">
+        
+        <!-- 1. BRAND ZONE (Left) -->
+        <a href="./index.html" class="brand">
+            <div class="brand-details">
+                <span class="brand-name">ALAMARA<span>i</span></span>
+                <span class="brand-tagline">Intelligent Digital Wardrobe</span>
+            </div>
+        </a>
+
+        
+            <!-- 2. PRIMARY NAVIGATION (Center) -->
+            <div class="nav-main-links">
+                <a href="./dashboard/index.html" class="nav-link ">
+                    Dashboard
+                </a>
+                <a href="./wardrobe/index.html" class="nav-link active">
+                    Wardrobe
+                </a>
+                <a href="/wardrobe/ai-upload/" class="nav-link ">
+                    Add Outfit
+                </a>
+                <a href="./stylist/index.html" class="nav-link ">
+                    Smart Styling
+                </a>
+            </div>
+
+            <!-- 3. UTILITY ZONE (Right) - AUTHENTICATED -->
+            <div class="nav-user-actions">
+                
+                <!-- Avatar -->
+                <a href="./profile/index.html" class="nav-avatar-link" title="Profile Settings">
+                    
+                        <img src="./media/profile_pictures/girlll.jpg" alt="Profile" class="nav-avatar-img">
+                    
+                </a>
+
+                <!-- Elegant Vertical Divider -->
+                <span class="nav-divider"></span>
+                
+                <!-- Sleek Logout Link -->
+                <a href="/accounts/logout/" class="nav-logout-link" title="Sign Out">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+
+            </div>
+        
+
+    </div>
+</nav>
+
+    <!-- Elegant Toast Notifications -->
+    
+
+    <main>
+        
+<div class="container wardrobe-page">
+
+    <!-- Header Section -->
+    <div class="wardrobe-header">
+        <div class="wardrobe-header-content">
+            <span>Digital Archive</span>
+            <h2>My Wardrobe</h2>
+            <p>Manage, categorize, and organize your curated clothing collection.</p>
+        </div>
+
+        
+        <div class="wardrobe-count-badge">
+            Total Pieces: <span>43</span>
+        </div>
+        
+    </div>
+
+    <!-- Search & Filter Bar -->
+    <div class="filter-card">
+        <form method="GET">
+            <div class="filter-grid">
+                <div>
+                    <input type="text" name="search" class="form-control" placeholder="Search by name or brand..." value="">
+                </div>
+
+                <div>
+                    <select name="category" class="form-select">
+                        <option value="All">All Categories</option>
+                        <option value="Top" >Top</option>
+                        <option value="Bottom" >Bottom</option>
+                        <option value="Dress" >One-Pieces</option>
+                        <option value="Shoes" >Shoes</option>
+                        <option value="Bag" >Bag</option>
+                        <option value="Accessory" >Accessory</option>
+                    </select>
+                </div>
+
+                <div>
+                    <input type="text" name="color" class="form-control" placeholder="Color" value="">
+                </div>
+
+                <div>
+                    <select name="season" class="form-select">
+                        <option value="All">All Seasons</option>
+                        <option value="Summer" >Summer</option>
+                        <option value="Winter" >Winter</option>
+                        <option value="Rainy" >Rainy</option>
+                        <option value="All Season" >All Season</option>
+                    </select>
+                </div>
+
+                <div>
+                    <select name="occasion" class="form-select">
+                        <option value="All">All Occasions</option>
+                        <option value="Casual" >Casual</option>
+                        <option value="College" >College</option>
+                        <option value="Office" >Office</option>
+                        <option value="Party" >Party</option>
+                        <option value="Wedding" >Wedding</option>
+                    </select>
+                </div>
+
+                <div>
+                    <button type="submit" class="search-btn w-100">
+                        Search
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Wardrobe Items Grid -->
+    
+    <div class="wardrobe-grid-layout">
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/0cf94c11f8be6daf65ccc0bb3f13ba9c.jpg" alt="Off-the-shoulder embellished gown">
+                
+                <span class="item-badge">Dress</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Off-the-shoulder embellished gown</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Blue</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">Party</span>
+                </div>
+
+                
+                <p class="clothing-desc">An elegant off-the-shoulder floor-length gown in blue tulle, heavily embellished with intricate floral beadwork and pearls.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/67/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/67/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/download%20(7).png" alt="Anarkali Dress">
+                
+                <span class="item-badge">Dress</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Anarkali Dress</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Pink</span>
+                    <span class="meta-tag">Summer</span>
+                    <span class="meta-tag">Wedding</span>
+                </div>
+
+                
+                <p class="clothing-desc">A floor-length magenta Anarkali dress with intricate gold embroidery along the neckline, sleeves, and hem, featuring scattered floral motifs.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/66/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/66/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/1ac730b5ce11b218030d8aea56cf3364.jpg" alt="button-front midi dress">
+                
+                <span class="item-badge">Dress</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>button-front midi dress</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Green</span>
+                    <span class="meta-tag">Summer</span>
+                    <span class="meta-tag">Casual</span>
+                </div>
+
+                
+                <p class="clothing-desc">A sleeveless midi dress in a muted green color with a square neckline and a button-down front, featuring a fitted bodice and a flared A-line skirt.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/65/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/65/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/399750f40175aba145e20e2f7bb75fdb.jpg" alt="Tiered Ruffle Skirt">
+                
+                <span class="item-badge">Bottom</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Tiered Ruffle Skirt</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Blue</span>
+                    <span class="meta-tag">Summer</span>
+                    <span class="meta-tag">Casual</span>
+                </div>
+
+                
+                <p class="clothing-desc">A flowing blue tiered ruffle skirt with a water-like pattern, featuring a tie waist and shell and starfish embellishments.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/64/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/64/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/256b785fb0b152a5c96185685f3a7197.jpg" alt="Block Heel Pumps">
+                
+                <span class="item-badge">Shoes</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Block Heel Pumps</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Brown</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">Office</span>
+                </div>
+
+                
+                <p class="clothing-desc">These brown leather block heel pumps feature a pointed toe and a modest heel.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/63/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/63/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/download%20(6).png" alt="Square Neckline Fit and Flare Dress">
+                
+                <span class="item-badge">Dress</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Square Neckline Fit and Flare Dress</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Navy Blue</span>
+                    <span class="meta-tag">Summer</span>
+                    <span class="meta-tag">Casual</span>
+                </div>
+
+                
+                <p class="clothing-desc">A sleeveless navy blue denim dress with a square neckline and a fit-and-flare silhouette.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/62/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/62/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/51b09d8a36adb8905ce54056e6a25394.jpg" alt="Bell Sleeve Crop Top">
+                
+                <span class="item-badge">Top</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Bell Sleeve Crop Top</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Maroon</span>
+                    <span class="meta-tag">Summer</span>
+                    <span class="meta-tag">Casual</span>
+                </div>
+
+                
+                <p class="clothing-desc">A maroon crop top with a sweetheart neckline, long bell sleeves, a floral print, and side tie details.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/61/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/61/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/6bac73392b7512636e0cc2ae1493b6bf.jpg" alt="Tiered Maxi Dress">
+                
+                <span class="item-badge">Dress</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Tiered Maxi Dress</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Yellow</span>
+                    <span class="meta-tag">Summer</span>
+                    <span class="meta-tag">Casual</span>
+                </div>
+
+                
+                <p class="clothing-desc">A flowing yellow tiered maxi dress with a square neckline and voluminous long sleeves featuring smocked cuffs.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/60/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/60/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/f892044eb403e3e6ff30cca64e576763.jpg" alt="Pinstripe Fitted Shirt">
+                
+                <span class="item-badge">Shirt</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Pinstripe Fitted Shirt</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Navy Blue</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">Office</span>
+                </div>
+
+                
+                <p class="clothing-desc">A navy blue long-sleeved shirt with white pinstripes, a pointed collar, and a fitted silhouette with button closure.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/59/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/59/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/deaee1af5d7091d8c90ee865022f9938.jpg" alt="Tote Bag">
+                
+                <span class="item-badge">Bag</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Tote Bag</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">White</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">Casual</span>
+                </div>
+
+                
+                <p class="clothing-desc">A white tote bag with a repeating cherry print and gold chain detailing.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/58/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/58/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/images.jpeg" alt="Platform Sneakers">
+                
+                <span class="item-badge">Shoes</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Platform Sneakers</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">White</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">Casual</span>
+                </div>
+
+                
+                <p class="clothing-desc">A pair of white canvas low-top sneakers with a thick white sole and lace-up closure.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/57/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/57/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/a3d4e997ae48cf073a46e16770440461.jpg" alt="Pinstripe Shirt">
+                
+                <span class="item-badge">Shirt</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Pinstripe Shirt</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Navy Blue</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">Office</span>
+                </div>
+
+                
+                <p class="clothing-desc">A navy blue short-sleeved shirt with white pinstripes, featuring a pointed collar and button-up front with a tailored fit.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/56/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/56/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/b65e65d1381d3c13e372954de91658ca.jpg" alt="mary jane shoes">
+                
+                <span class="item-badge">Shoes</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>mary jane shoes</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Brown</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">Office</span>
+                </div>
+
+                
+                <p class="clothing-desc">These are elegant brown leather mary jane shoes with a low block heel and an adjustable ankle strap.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/55/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/55/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/WhatsApp%20Image%202026-07-03%20at%2010.09.50%20PM%20(1).jpeg" alt="Black Trousers">
+                
+                <span class="item-badge">Bottom</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Black Trousers</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Black</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">Office</span>
+                </div>
+
+                
+                <p class="clothing-desc">Black wide-leg trousers with vertical front seams.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/3/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/3/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/WhatsApp%20Image%202026-07-03%20at%2010.09.49%20PM%20(1).jpeg" alt="Brown Pants">
+                
+                <span class="item-badge">Bottom</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Brown Pants</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Brown</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">Casual</span>
+                </div>
+
+                
+                <p class="clothing-desc">Brown high-waisted wide-leg trousers.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/4/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/4/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/WhatsApp%20Image%202026-07-03%20at%2010.09.49%20PM.jpeg" alt="Beige Woven Flats">
+                
+                <span class="item-badge">Shoes</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Beige Woven Flats</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Beige</span>
+                    <span class="meta-tag">Summer</span>
+                    <span class="meta-tag">Casual</span>
+                </div>
+
+                
+                <p class="clothing-desc">Beige perforated slip-on flats.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/6/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/6/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/WhatsApp%20Image%202026-07-03%20at%2010.09.48%20PM.jpeg" alt="Brown White Sneakers">
+                
+                <span class="item-badge">Shoes</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Brown White Sneakers</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Brown</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">College</span>
+                </div>
+
+                
+                <p class="clothing-desc">Brown and white sneakers with a decorative buckle strap.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/7/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/7/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/WhatsApp%20Image%202026-07-07%20at%209.34.31%20PM%20(1).jpeg" alt="Gold Heart Necklace">
+                
+                <span class="item-badge">Accessory</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Gold Heart Necklace</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Gold</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">Casual</span>
+                </div>
+
+                
+                <p class="clothing-desc">Gold snake chain necklace featuring a simple heart-shaped pendant.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/8/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/8/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/WhatsApp%20Image%202026-07-07%20at%209.34.32%20PM%20(1).jpeg" alt="White Handbag">
+                
+                <span class="item-badge">Bag</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>White Handbag</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">White</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">Party</span>
+                </div>
+
+                
+                <p class="clothing-desc">White crescent shoulder bag with a gold bow detail.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/9/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/9/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/WhatsApp%20Image%202026-07-07%20at%209.34.31%20PM.jpeg" alt="Gold Earrings">
+                
+                <span class="item-badge">Accessory</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Gold Earrings</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Gold</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">Party</span>
+                </div>
+
+                
+                <p class="clothing-desc">Gold-toned ear cuffs adorned with multiple rows of clear stones.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/12/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/12/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/WhatsApp%20Image%202026-07-07%20at%209.34.34%20PM%20(1).jpeg" alt="Cable Knit Collared Top">
+                
+                <span class="item-badge">Top</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Cable Knit Collared Top</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Blue</span>
+                    <span class="meta-tag">Winter</span>
+                    <span class="meta-tag">Casual</span>
+                </div>
+
+                
+                <p class="clothing-desc">A blue cable knit cropped top with white balloon sleeves and a crisp white collar.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/13/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/13/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/WhatsApp%20Image%202026-07-07%20at%209_JveHGuo.34.35%20PM.jpeg" alt="Ruched Drawstring Long Sleeve Top">
+                
+                <span class="item-badge">Top</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Ruched Drawstring Long Sleeve Top</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Olive Green</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">Casual</span>
+                </div>
+
+                
+                <p class="clothing-desc">A flattering olive green ribbed knit top with a sweetheart neckline, drawstring ruching at the bust, and a peplum hem.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/18/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/18/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/WhatsApp%20Image%202026-07-07%20at%209.34.32%20PM%20(2).jpeg" alt="Shoulder Bag">
+                
+                <span class="item-badge">Bag</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Shoulder Bag</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Cream</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">Casual</span>
+                </div>
+
+                
+                <p class="clothing-desc">A cream-colored hobo bag with brown trim and strap offers a chic and versatile accessory.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/19/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/19/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/WhatsApp%20Image%202026-07-07%20at%209_1ouGpYs.34.33%20PM%20(3).jpeg" alt="Peplum Bow Top">
+                
+                <span class="item-badge">Top</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Peplum Bow Top</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Black</span>
+                    <span class="meta-tag">Summer</span>
+                    <span class="meta-tag">Casual</span>
+                </div>
+
+                
+                <p class="clothing-desc">A chic black peplum top with a romantic bow accent and playful ruffled sleeves.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/21/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/21/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/WhatsApp%20Image%202026-08-01%20at%207.46.11%20PM.jpeg" alt="Pleated Wide-Leg Pants">
+                
+                <span class="item-badge">Bottom</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Pleated Wide-Leg Pants</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Beige</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">Office</span>
+                </div>
+
+                
+                <p class="clothing-desc">These beige pleated wide-leg pants offer a sophisticated and comfortable look for everyday wear.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/24/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/24/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/WhatsApp%20Image%202026-07-03%20at%2010_2PUVToo.09.50%20PM.jpeg" alt="Ribbed Bell Sleeve Top">
+                
+                <span class="item-badge">Top</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Ribbed Bell Sleeve Top</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Red</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">Casual</span>
+                </div>
+
+                
+                <p class="clothing-desc">A festive red ribbed knit top with dramatic bell sleeves and a lettuce trim hem.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/29/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/29/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/87de61463182fa9ccd31a7a7084395e2.jpg" alt="Square Neck Puff Sleeve Top">
+                
+                <span class="item-badge">Top</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Square Neck Puff Sleeve Top</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Brown</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">Casual</span>
+                </div>
+
+                
+                <p class="clothing-desc">A brown puff-sleeve top with a square neckline and a front tie detail.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/30/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/30/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/6ac4644878f212e9c848452e17bb6240.jpg" alt="Wide-leg jeans">
+                
+                <span class="item-badge">Bottom</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Wide-leg jeans</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Blue</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">College</span>
+                </div>
+
+                
+                <p class="clothing-desc">These are high-waisted, wide-leg denim jeans with a frayed hem.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/32/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/32/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/WhatsApp%20Image%202026-07-07%20at%209_hHbX2vt.34.32%20PM.jpeg" alt="Floral Mesh Maxi Dress">
+                
+                <span class="item-badge">Dress</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Floral Mesh Maxi Dress</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Black</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">Party</span>
+                </div>
+
+                
+                <p class="clothing-desc">A black mesh maxi dress with a beige floral print and long sleeves.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/33/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/33/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/283bf5f0db155ae4895414af98508fa3.jpg" alt="Wide Leg Jeans">
+                
+                <span class="item-badge">Bottom</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Wide Leg Jeans</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Grey</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">College</span>
+                </div>
+
+                
+                <p class="clothing-desc">These grey denim wide-leg jeans feature a high-waisted design.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/34/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/34/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/a49010f8a3845e62cf3f7392877346db.jpg" alt="Denim Shirt with Bow Detail">
+                
+                <span class="item-badge">Shirt</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Denim Shirt with Bow Detail</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Blue</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">College</span>
+                </div>
+
+                
+                <p class="clothing-desc">A dark wash denim shirt featuring a subtle embroidered bow detail on the chest.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/35/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/35/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/images%20(5).jpeg" alt="Ballet Flats">
+                
+                <span class="item-badge">Shoes</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Ballet Flats</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Pink</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">Casual</span>
+                </div>
+
+                
+                <p class="clothing-desc">These are pink ballet flats with a twisted accent on the toe.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/37/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/37/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/images%20(4).jpeg" alt="Burgundy Buckled Platform Boots">
+                
+                <span class="item-badge">Shoes</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Burgundy Buckled Platform Boots</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Burgundy</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">Party</span>
+                </div>
+
+                
+                <p class="clothing-desc">These burgundy suede platform boots feature a stylish buckle detail and a chunky heel.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/38/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/38/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/af8bbd6c6666c0d566b97d216b1855e2.jpg" alt="Tote Bag">
+                
+                <span class="item-badge">Bag</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Tote Bag</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Perfect Lily</span>
+                    <span class="meta-tag">Blue</span>
+                    <span class="meta-tag">Summer</span>
+                    <span class="meta-tag">Casual</span>
+                </div>
+
+                
+                <p class="clothing-desc">A light blue denim tote bag with a bow pattern and chain accents.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/39/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/39/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/42cfbba4e1e4ab3b1387bbafe2a0f485.jpg" alt="Bucket Bag">
+                
+                <span class="item-badge">Bag</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Bucket Bag</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Black</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">Office</span>
+                </div>
+
+                
+                <p class="clothing-desc">A sleek, minimalist black leather bucket bag with adjustable straps.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/40/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/40/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/5ce6515b9d30b09edaf35b795510300f.jpg" alt="Infinity Necklace">
+                
+                <span class="item-badge">Accessory</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Infinity Necklace</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Gold</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">Casual</span>
+                </div>
+
+                
+                <p class="clothing-desc">A delicate gold necklace featuring an infinity pendant adorned with small stones.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/41/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/41/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/ec38ec7ed3f6e00dc6cd914a62f81df1.jpg" alt="Bow Necklace">
+                
+                <span class="item-badge">Accessory</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Bow Necklace</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Gold</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">Party</span>
+                </div>
+
+                
+                <p class="clothing-desc">A delicate gold necklace with a sparkling bow pendant.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/42/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/42/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/1c31ec7d565bfb205135369d814421ec.jpg" alt="Striped Button-Up Shirt">
+                
+                <span class="item-badge">Shirt</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Striped Button-Up Shirt</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Brown</span>
+                    <span class="meta-tag">Summer</span>
+                    <span class="meta-tag">Office</span>
+                </div>
+
+                
+                <p class="clothing-desc">A brown pinstriped button-up shirt with short sleeves and a pointed collar.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/43/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/43/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/ba92d96ed58bfa7b355473e04ce0b4c4.jpg" alt="Bucket Bag">
+                
+                <span class="item-badge">Bag</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Bucket Bag</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">NICEKEE</span>
+                    <span class="meta-tag">Brown</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">Casual</span>
+                </div>
+
+                
+                <p class="clothing-desc">A structured brown leather bucket bag with top handles, a removable crossbody strap, and a striped scarf tied to one handle.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/50/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/50/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/dc6143e369851f93a272d0969caf2aa6.jpg" alt="Anarkali Suit Set">
+                
+                <span class="item-badge">Dress</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Anarkali Suit Set</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Black</span>
+                    <span class="meta-tag">Summer</span>
+                    <span class="meta-tag">Wedding</span>
+                </div>
+
+                
+                <p class="clothing-desc">A black sleeveless Anarkali dress with a flared skirt, adorned with pink lotus motifs and a matching dupatta.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/51/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/51/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/bddfd43d812346bd026d257d8abe7998.jpg" alt="ankle boots">
+                
+                <span class="item-badge">Shoes</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>ankle boots</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Black</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">Office</span>
+                </div>
+
+                
+                <p class="clothing-desc">Black leather ankle boots with a side zipper and a low block heel.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/52/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/52/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/5ba8ff973165467eec9b4926f1ed6c71_GHhS0MY.jpg" alt="Anarkali Suit with Palazzo and Dupatta">
+                
+                <span class="item-badge">Dress</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>Anarkali Suit with Palazzo and Dupatta</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">Maroon</span>
+                    <span class="meta-tag">Summer</span>
+                    <span class="meta-tag">Wedding</span>
+                </div>
+
+                
+                <p class="clothing-desc">A maroon sleeveless Anarkali dress with a flared skirt featuring a floral print, paired with palazzo pants and a printed dupatta.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/53/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/53/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+        <div class="clothing-item-card">
+            
+            <div class="card-img-wrapper">
+                
+                <img src="./media/45cb4a137e33c305bb0cd1d4f0cc3ea2_BKQXKxH.jpg" alt="wide-leg denim pants">
+                
+                <span class="item-badge">Bottom</span>
+            </div>
+
+            <div class="clothing-body">
+                <h4>wide-leg denim pants</h4>
+                
+                <div class="meta-tags">
+                    <span class="meta-tag">Unknown</span>
+                    <span class="meta-tag">White</span>
+                    <span class="meta-tag">All Season</span>
+                    <span class="meta-tag">Casual</span>
+                </div>
+
+                
+                <p class="clothing-desc">These are white denim pants with a high waist, wide legs, and large patch pockets on the front.</p>
+                
+            </div>
+
+            <div class="clothing-footer">
+                <a href="/wardrobe/edit/54/" class="btn-edit">
+                    Edit
+                </a>
+                <a href="/wardrobe/delete/54/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                    Delete
+                </a>
+            </div>
+
+        </div>
+        
+    </div>
+
+    
+
+</div>
+
+    </main>
+
+    <footer class="footer">
+    <div class="container footer-container">
+        <div class="footer-left">
+            <h3 class="footer-brand">ALAMARA<span>i</span></h3>
+            <p class="footer-text">Intelligent Digital Wardrobe & Styling Assistant</p>
+        </div>
+        
+        <div class="footer-right">
+            <p class="footer-copy">&copy; 2026 ALAMARAi. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<style>
+/* =====================================
+   MINIMAL LUXURY FASHION FOOTER
+===================================== */
+.footer {
+    background-color: var(--surface, #FFFFFF);
+    border-top: 1px solid var(--border, #ECE7DE);
+    padding: 30px 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-brand {
+    font-size: 1.2rem;
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    color: var(--text-primary, #171717);
+    margin: 0 0 4px 0;
+    letter-spacing: 0.05em;
+}
+
+.footer-brand span {
+    color: var(--gold, #C8A96A);
+    font-style: italic;
+}
+
+.footer-text, 
+.footer-copy {
+    font-size: 0.8rem;
+    color: var(--text-secondary, #666666);
+    font-weight: 300;
+    margin: 0;
+    letter-spacing: 0.03em;
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+}
+</style>
+
+    <!-- Auto-dismiss Toast script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const toasts = document.querySelectorAll('.toast-message');
+            if (toasts.length > 0) {
+                setTimeout(function() {
+                    toasts.forEach(function(toast) {
+                        toast.style.transition = "all 0.4s ease";
+                        toast.style.opacity = "0";
+                        toast.style.transform = "translateX(100%)";
+                        
+                        setTimeout(function() {
+                            toast.remove();
+                            const container = document.getElementById('toast-container');
+                            if (container && container.innerHTML.trim() === '') {
+                                container.remove();
+                            }
+                        }, 400);
+                    });
+                }, 4000); // 4 seconds delay before dismissing
+            }
+        });
+    </script>
+
+    
+    
+
+</body>
+</html>

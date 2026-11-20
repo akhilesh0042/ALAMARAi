@@ -1,0 +1,1625 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        
+ALAMARAi | Dashboard
+
+    </title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./static/css/variables.css">
+    <link rel="stylesheet" href="./static/css/base.css">
+    <link rel="stylesheet" href="./static/css/components.css">
+
+    <style>
+        /* =====================================
+           GLOBAL NAVBAR AVATAR STYLING
+        ===================================== */
+        .nav-avatar-link {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-avatar-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--gold, #C8A96A);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .nav-avatar-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(200, 169, 106, 0.2);
+        }
+
+        .nav-avatar-initial {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: transparent;
+            border: 1px solid var(--gold, #C8A96A);
+            color: var(--gold, #C8A96A);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s ease;
+        }
+
+        .nav-avatar-link:hover .nav-avatar-initial {
+            background-color: var(--gold, #C8A96A);
+            color: #ffffff;
+        }
+
+        /* =====================================
+           TOAST NOTIFICATIONS
+        ===================================== */
+        .toast-container {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast-message {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 24px;
+            background: var(--card-pure, #ffffff);
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            border-left: 4px solid transparent;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-main, #171717);
+            min-width: 300px;
+            animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .toast-success { border-left-color: #10B981; }
+        .toast-success i { color: #10B981; font-size: 1.2rem; }
+        
+        .toast-error { border-left-color: #EF4444; }
+        .toast-error i { color: #EF4444; font-size: 1.2rem; }
+
+        .toast-info { border-left-color: #3B82F6; }
+        .toast-info i { color: #3B82F6; font-size: 1.2rem; }
+
+        .toast-close {
+            margin-left: auto;
+            background: none;
+            border: none;
+            color: var(--text-muted, #666666);
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 0;
+            transition: color 0.2s ease;
+        }
+
+        .toast-close:hover { color: var(--text-main, #171717); }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+
+    
+<style>
+/* =====================================
+   DASHBOARD LUXURY EDITORIAL REFINEMENT
+===================================== */
+/* 1. Light Theme (Default) */
+:root {
+    --bg-warm: #FAF8F4;
+    --card-pure: #FFFFFF;
+    --text-main: #171717;
+    --text-muted: #6B6B6B;
+    --gold: #C8A96A;
+    --gold-dark: #AA8748;
+    --border-subtle: #E8E3D8;
+    --shadow-soft: 0 12px 40px rgba(0,0,0,0.04);
+    --shadow-hover: 0 20px 50px rgba(0,0,0,0.08);
+    --radius-btn: 50px;
+    --radius-card: 24px;
+    --radius-img: 16px;
+    --radius-sec: 32px;
+    --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 2. Dark Theme Sync */
+[data-theme="dark"] {
+    --bg-warm: #121212;
+    --card-pure: #1E1E1E;
+    --text-main: #F5F5F5;
+    --text-muted: #A3A3A3;
+    --border-subtle: #333333;
+    --shadow-soft: 0 12px 40px rgba(0,0,0,0.4);
+    --shadow-hover: 0 20px 50px rgba(0,0,0,0.6);
+}
+
+body {
+    background-color: var(--bg-warm);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.dashboard-page {
+    padding: 60px 20px 100px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+/* --- Animations --- */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in {
+    animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+}
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+
+/* --- Section Titles --- */
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin: 64px 0 32px;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 16px;
+    transition: border-color 0.4s ease;
+}
+
+.section-title h2 {
+    font-size: 1.8rem;
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    margin: 0;
+    color: var(--text-main);
+    transition: color 0.4s ease;
+}
+
+.section-title a {
+    font-weight: 600;
+    color: var(--gold-dark);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+.section-title a:hover { opacity: 0.7; }
+
+/* --- Buttons --- */
+.primary-btn, .secondary-btn {
+    border-radius: var(--radius-btn);
+    padding: 14px 32px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    transition: var(--transition-smooth);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.primary-btn {
+    background-color: var(--text-main);
+    color: var(--bg-warm);
+    border: 1px solid var(--text-main);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
+
+.primary-btn:hover {
+    background-color: var(--gold-dark);
+    border-color: var(--gold-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(170, 135, 72, 0.2);
+    color: #fff;
+}
+
+.secondary-btn {
+    background-color: transparent;
+    color: var(--text-main);
+    border: 1px solid var(--border-subtle);
+}
+
+.secondary-btn:hover {
+    border-color: var(--text-main);
+    background-color: var(--text-main);
+    color: var(--bg-warm);
+    transform: translateY(-3px);
+}
+
+/* =====================================
+1. WELCOME HERO
+===================================== */
+.dashboard-hero {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 32px;
+    align-items: stretch;
+    margin-bottom: 48px;
+}
+
+.hero-text-card {
+    background: var(--card-pure);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sec);
+    padding: 64px 56px;
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: all 0.4s ease;
+}
+
+.dashboard-label {
+    font-size: 0.7rem;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 24px;
+    display: block;
+}
+
+.hero-text-card h1 {
+    font-size: 3.2rem;
+    line-height: 1.2;
+    margin-bottom: 24px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    color: var(--text-main);
+    transition: color 0.4s ease;
+}
+
+.hero-text-card h1 span {
+    font-style: italic;
+    color: var(--gold-dark);
+    font-weight: 500;
+}
+
+.hero-text-card p {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 40px;
+    max-width: 480px;
+    font-weight: 300;
+    transition: color 0.4s ease;
+}
+
+.hero-image-card {
+    border-radius: var(--radius-sec);
+    overflow: hidden;
+    position: relative;
+    box-shadow: var(--shadow-soft);
+}
+
+.hero-image-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* =====================================
+2. WARDROBE STATISTICS
+===================================== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.stat-card {
+    background: var(--card-pure);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    padding: 32px;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition-smooth);
+}
+
+.stat-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--gold);
+}
+
+.stat-card i {
+    font-size: 1.5rem;
+    color: var(--gold);
+    margin-bottom: 16px;
+}
+
+.stat-card h2 {
+    font-size: 2.5rem;
+    margin-bottom: 8px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    color: var(--text-main);
+}
+
+.stat-card p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* =====================================
+3. WARDROBE CATEGORIES (EDITORIAL)
+===================================== */
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.category-card {
+    background: var(--card-pure);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    padding: 24px;
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition-smooth);
+    display: flex;
+    flex-direction: column;
+}
+
+.category-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--gold);
+}
+
+.cat-image {
+    width: 100%;
+    height: 180px;
+    background: var(--bg-warm);
+    border-radius: var(--radius-img);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.cat-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Editorial Placeholder Styling */
+.placeholder-img {
+    filter: grayscale(100%) opacity(0.3);
+    mix-blend-mode: multiply;
+}
+
+.category-card:hover .cat-image img {
+    transform: scale(1.05);
+}
+
+.category-card:hover .placeholder-img {
+    filter: grayscale(100%) opacity(0.5); /* Slight darkening on hover */
+}
+
+.cat-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cat-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    margin: 0 0 4px 0;
+    font-weight: 400;
+    color: var(--text-main);
+}
+
+.cat-info p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.cat-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--bg-warm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-main);
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.category-card:hover .cat-btn {
+    background: var(--text-main);
+    color: var(--bg-warm);
+}
+
+/* =====================================
+4. WARDROBE DISTRIBUTION
+===================================== */
+.distribution-card {
+    background: var(--card-pure);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    padding: 40px;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.4s ease;
+}
+
+.dist-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.dist-row:last-child { margin-bottom: 0; }
+
+.dist-label {
+    width: 130px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-main);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.dist-bar-wrap {
+    flex-grow: 1;
+    height: 8px;
+    background: var(--bg-warm);
+    border-radius: 4px;
+    margin: 0 24px;
+    overflow: hidden;
+}
+
+.dist-bar-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 4px;
+    transition: width 1s ease-in-out;
+}
+
+.dist-count {
+    width: 40px;
+    text-align: right;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: 'Playfair Display', serif;
+    color: var(--text-main);
+}
+
+/* =====================================
+5. RECENTLY ADDED (Horizontal)
+===================================== */
+.recent-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.horizontal-card {
+    display: flex;
+    background: var(--card-pure);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-img);
+    padding: 16px;
+    box-shadow: var(--shadow-soft);
+    align-items: center;
+    transition: var(--transition-smooth);
+}
+
+.horizontal-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateX(4px);
+}
+
+.hc-image {
+    width: 90px;
+    height: 90px;
+    border-radius: 12px;
+    object-fit: cover;
+    background: var(--bg-warm);
+    margin-right: 20px;
+}
+
+.hc-details h4 {
+    font-size: 1.1rem;
+    font-family: 'Playfair Display', serif;
+    margin: 0 0 6px 0;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+.hc-meta {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    display: flex;
+    gap: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.hc-meta span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* =====================================
+6. WARDROBE INSIGHTS
+===================================== */
+.insights-card {
+    background: var(--card-pure);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    padding: 40px;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.4s ease;
+}
+
+.insight-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.insight-list li {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    line-height: 1.5;
+}
+
+.insight-list li i {
+    color: var(--gold);
+    margin-top: 4px;
+    font-size: 0.8rem;
+}
+
+/* =====================================
+   7 & 8. WEATHER & RECENT ACTIVITY
+===================================== */
+.split-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+}
+
+.weather-widget {
+    background: var(--card-pure);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sec);
+    padding: 40px;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.weather-header {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+}
+
+.weather-main {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    margin-bottom: 32px;
+}
+
+.weather-main h2 {
+    font-size: 4rem;
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--text-main);
+}
+
+.weather-main p {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    margin: 8px 0 0 0;
+}
+
+.weather-details {
+    display: flex;
+    gap: 32px;
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 24px;
+}
+
+.w-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.w-detail span:first-child {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+}
+
+.w-detail span:last-child {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+/* Weather-Based Styling Suggestion Box */
+.weather-suggestion-box {
+    margin-top: 24px;
+    background: var(--bg-warm);
+    border: 1px dashed var(--gold);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.weather-suggestion-box i {
+    color: var(--gold);
+    font-size: 1.2rem;
+    margin-top: 2px;
+}
+
+.weather-suggestion-content h4 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 4px 0;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.weather-suggestion-content p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Timeline */
+.activity-widget {
+    background: var(--card-pure);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sec);
+    padding: 40px;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.4s ease;
+}
+
+.timeline {
+    position: relative;
+    border-left: 2px solid var(--bg-warm);
+    margin-left: 10px;
+    padding-left: 24px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 24px;
+}
+
+.timeline-item:last-child { margin-bottom: 0; }
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -31px;
+    top: 4px;
+    width: 12px;
+    height: 12px;
+    background: var(--gold);
+    border-radius: 50%;
+    border: 2px solid var(--card-pure);
+}
+
+.timeline-item p {
+    margin: 0 0 4px 0;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--text-main);
+}
+
+.timeline-item span {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* =====================================
+9. SMART STYLING BANNER
+===================================== */
+.styling-banner {
+    background: linear-gradient(135deg, #1A1A1A 0%, #2D2D2D 100%);
+    color: #FFFFFF;
+    border-radius: var(--radius-sec);
+    padding: 56px 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow-hover);
+    margin-top: 64px;
+}
+
+.banner-content h2 {
+    font-size: 2.2rem;
+    font-weight: 400;
+    font-family: 'Playfair Display', serif;
+    margin: 0 0 12px 0;
+    color: #FFFFFF;
+}
+
+.banner-content p {
+    color: #A3A3A3;
+    font-size: 1rem;
+    margin: 0 0 24px 0;
+    font-weight: 300;
+}
+
+.banner-btn {
+    background: var(--gold);
+    color: #171717;
+    border: none;
+    border-radius: var(--radius-btn);
+    padding: 14px 32px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    transition: var(--transition-smooth);
+    display: inline-block;
+}
+
+.banner-btn:hover {
+    background: #fff;
+    transform: translateY(-2px);
+}
+
+/* =====================================
+10. QUICK ACTIONS
+===================================== */
+.quick-actions {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+.action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    background: var(--card-pure);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    text-decoration: none;
+    color: var(--text-main);
+    transition: var(--transition-smooth);
+    gap: 16px;
+}
+
+.action-btn i {
+    font-size: 1.8rem;
+    color: var(--gold);
+}
+
+.action-btn span {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.action-btn:hover {
+    border-color: var(--gold);
+    box-shadow: var(--shadow-soft);
+    transform: translateY(-4px);
+}
+
+/* Responsive */
+@media(max-width: 1024px){
+    .dashboard-hero, .split-grid { grid-template-columns: 1fr; }
+    .stats-grid, .quick-actions { grid-template-columns: repeat(2, 1fr); }
+    .categories-grid { grid-template-columns: repeat(2, 1fr); }
+    .recent-grid { grid-template-columns: 1fr; }
+    .insight-list { grid-template-columns: 1fr; }
+}
+
+@media(max-width: 768px){
+    .stats-grid, .categories-grid, .quick-actions { grid-template-columns: 1fr; }
+    .hero-text-card { padding: 40px 32px; }
+    .hero-image-card { height: 300px; }
+    .styling-banner { flex-direction: column; text-align: center; gap: 32px; padding: 40px 24px; }
+}
+</style>
+
+</head>
+<body>
+    <div style="background: linear-gradient(90deg, #111111, #1e1e1e); color: #C8A96A; text-align: center; padding: 10px 16px; font-size: 13px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; position: sticky; top: 0; z-index: 999999; border-bottom: 1px solid rgba(200,169,106,0.3); display: flex; align-items: center; justify-content: center; gap: 15px; flex-wrap: wrap;">
+        <span>✨ <strong>ALAMARAi Live Preview on GitHub Pages</strong> (43 Wardrobe Items Loaded)</span>
+        <div style="display: flex; gap: 10px;">
+            <a href="./dashboard/index.html" style="color: #fff; background: rgba(200,169,106,0.25); padding: 3px 10px; border-radius: 4px; text-decoration: none; font-size: 12px; border: 1px solid #C8A96A;">Dashboard</a>
+            <a href="./wardrobe/index.html" style="color: #fff; background: rgba(200,169,106,0.25); padding: 3px 10px; border-radius: 4px; text-decoration: none; font-size: 12px; border: 1px solid #C8A96A;">Wardrobe</a>
+            <a href="./stylist/index.html" style="color: #fff; background: rgba(200,169,106,0.25); padding: 3px 10px; border-radius: 4px; text-decoration: none; font-size: 12px; border: 1px solid #C8A96A;">Stylist</a>
+            <a href="https://github.com/akhilesh0042/ALAMARAi" target="_blank" style="color: #C8A96A; text-decoration: underline; font-size: 12px; margin-left: 5px;">GitHub Repo</a>
+        </div>
+    </div>
+    
+
+    
+
+<style>
+    /* =====================================
+       AUTHENTICATED UTILITY ZONE (Profile & Logout)
+    ===================================== */
+    .nav-user-actions {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+    }
+
+    .nav-divider {
+        width: 1px;
+        height: 24px;
+        background-color: var(--border-subtle, #E5E7EB);
+    }
+
+    .nav-logout-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--text-muted, #666666);
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .nav-logout-link:hover {
+        color: #DC2626;
+        transform: translateX(2px);
+    }
+
+    .nav-logout-link i {
+        font-size: 1.1rem;
+    }
+
+    /* =====================================
+       UNAUTHENTICATED UTILITY ZONE (Sign In & Get Started)
+    ===================================== */
+    .nav-auth-signin {
+        color: var(--text-main, #171717);
+        font-size: 0.85rem;
+        font-weight: 500;
+        text-decoration: none;
+        position: relative;
+        transition: color 0.3s ease;
+    }
+
+    /* Subtle sliding underline effect on hover */
+    .nav-auth-signin::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 1px;
+        bottom: -2px;
+        left: 0;
+        background-color: var(--gold, #C8A96A);
+        transition: width 0.3s ease;
+    }
+
+    .nav-auth-signin:hover::after {
+        width: 100%;
+    }
+
+    /* Eye-catching Soft Gold Pill Button */
+    .nav-auth-getstarted {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 24px;
+        background: linear-gradient(135deg, #C8A96A 0%, #AA8748 100%);
+        color: #ffffff;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        text-decoration: none;
+        border-radius: 50px;
+        box-shadow: 0 4px 15px rgba(200, 169, 106, 0.25);
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-auth-getstarted:hover {
+        background: var(--text-main, #171717);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+</style>
+
+<nav class="navbar">
+    <div class="container navbar-container">
+        
+        <!-- 1. BRAND ZONE (Left) -->
+        <a href="./index.html" class="brand">
+            <div class="brand-details">
+                <span class="brand-name">ALAMARA<span>i</span></span>
+                <span class="brand-tagline">Intelligent Digital Wardrobe</span>
+            </div>
+        </a>
+
+        
+            <!-- 2. PRIMARY NAVIGATION (Center) -->
+            <div class="nav-main-links">
+                <a href="./dashboard/index.html" class="nav-link active">
+                    Dashboard
+                </a>
+                <a href="./wardrobe/index.html" class="nav-link ">
+                    Wardrobe
+                </a>
+                <a href="/wardrobe/ai-upload/" class="nav-link ">
+                    Add Outfit
+                </a>
+                <a href="./stylist/index.html" class="nav-link ">
+                    Smart Styling
+                </a>
+            </div>
+
+            <!-- 3. UTILITY ZONE (Right) - AUTHENTICATED -->
+            <div class="nav-user-actions">
+                
+                <!-- Avatar -->
+                <a href="./profile/index.html" class="nav-avatar-link" title="Profile Settings">
+                    
+                        <img src="./media/profile_pictures/girlll.jpg" alt="Profile" class="nav-avatar-img">
+                    
+                </a>
+
+                <!-- Elegant Vertical Divider -->
+                <span class="nav-divider"></span>
+                
+                <!-- Sleek Logout Link -->
+                <a href="/accounts/logout/" class="nav-logout-link" title="Sign Out">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+
+            </div>
+        
+
+    </div>
+</nav>
+
+    <!-- Elegant Toast Notifications -->
+    
+
+    <main>
+        
+<div class="container dashboard-page">
+
+<!-- 1. WELCOME HERO -->
+<section class="dashboard-hero animate-in">
+    <div class="hero-text-card">
+        <span class="dashboard-label">Intelligent Digital Wardrobe Suite</span>
+        <h1>
+            Good Evening, <br>
+            <span>mypro</span>
+        </h1>
+        <p>
+            Your wardrobe summary is ready. You currently have <strong>43 items</strong> logged in your digital collection.
+        </p>
+        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+            <a href="/wardrobe/upload/" class="primary-btn">
+                <i class="fa-solid fa-plus" style="margin-right: 10px;"></i> Add Clothing
+            </a>
+            <a href="./wardrobe/index.html" class="secondary-btn">
+                Open Wardrobe
+            </a>
+        </div>
+    </div>
+    <div class="hero-image-card">
+        <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=800&q=80" alt="Premium Wardrobe Display">
+    </div>
+</section>
+
+<!-- 2. WARDROBE STATISTICS -->
+<section class="stats-grid animate-in delay-1">
+    <div class="stat-card">
+        <i class="fa-solid fa-shirt"></i>
+        <h2>43</h2>
+        <p>Total Items</p>
+    </div>
+    <div class="stat-card">
+        <i class="fa-solid fa-layer-group"></i>
+        <h2>6</h2>
+        <p>Categories</p>
+    </div>
+    <div class="stat-card">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        <h2>6</h2>
+        <p>Recently Added</p>
+    </div>
+</section>
+
+<!-- 3. WARDROBE CATEGORIES (UNISEX EDITORIAL PLACEHOLDERS) -->
+<div class="section-title animate-in delay-2">
+    <h2>Wardrobe Categories</h2>
+</div>
+<section class="categories-grid animate-in delay-2">
+    
+    <!-- Category: Tops -->
+    <div class="category-card">
+        <div class="cat-image">
+            
+                <img src="./media/51b09d8a36adb8905ce54056e6a25394.jpg" alt="Recent Top">
+            
+        </div>
+        <div class="cat-info">
+            <div>
+                <h3>Tops</h3>
+                <p>10 Items</p>
+            </div>
+            <a href="/wardrobe/?category=tops" class="cat-btn"><i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </div>
+    
+    <!-- Category: Bottoms -->
+    <div class="category-card">
+        <div class="cat-image">
+            
+                <img src="./media/399750f40175aba145e20e2f7bb75fdb.jpg" alt="Recent Bottom">
+            
+        </div>
+        <div class="cat-info">
+            <div>
+                <h3>Bottoms</h3>
+                <p>7 Items</p>
+            </div>
+            <a href="/wardrobe/?category=bottoms" class="cat-btn"><i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </div>
+    
+    <!-- Category: One-Pieces -->
+    <div class="category-card">
+        <div class="cat-image">
+            
+                <img src="./media/0cf94c11f8be6daf65ccc0bb3f13ba9c.jpg" alt="Recent One-Piece">
+            
+        </div>
+        <div class="cat-info">
+            <div>
+                <h3>One-Pieces</h3>
+                <p>8 Items</p>
+            </div>
+            <a href="/wardrobe/?category=dresses" class="cat-btn"><i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </div>
+    
+    <!-- Category: Shoes -->
+    <div class="category-card">
+        <div class="cat-image">
+            
+                <img src="./media/256b785fb0b152a5c96185685f3a7197.jpg" alt="Recent Shoe">
+            
+        </div>
+        <div class="cat-info">
+            <div>
+                <h3>Shoes</h3>
+                <p>8 Items</p>
+            </div>
+            <a href="/wardrobe/?category=shoes" class="cat-btn"><i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </div>
+    
+    <!-- Category: Bags -->
+    <div class="category-card">
+        <div class="cat-image">
+            
+                <img src="./media/deaee1af5d7091d8c90ee865022f9938.jpg" alt="Recent Bag">
+            
+        </div>
+        <div class="cat-info">
+            <div>
+                <h3>Bags</h3>
+                <p>6 Items</p>
+            </div>
+            <a href="/wardrobe/?category=bags" class="cat-btn"><i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </div>
+    
+    <!-- Category: Accessories -->
+    <div class="category-card">
+        <div class="cat-image">
+            
+                <img src="./media/WhatsApp%20Image%202026-07-07%20at%209.34.31%20PM%20(1).jpeg" alt="Recent Accessory">
+            
+        </div>
+        <div class="cat-info">
+            <div>
+                <h3>Accessories</h3>
+                <p>4 Items</p>
+            </div>
+            <a href="/wardrobe/?category=accessories" class="cat-btn"><i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </div>
+</section>
+
+<!-- 4. WARDROBE DISTRIBUTION -->
+<div class="section-title animate-in delay-2">
+    <h2>Wardrobe Distribution</h2>
+</div>
+<section class="distribution-card animate-in delay-2">
+    
+    <div class="dist-row">
+        <div class="dist-label">Tops</div>
+        <div class="dist-bar-wrap">
+            
+                <div class="dist-bar-fill" style="width: 23%;"></div>
+            
+        </div>
+        <div class="dist-count">10</div>
+    </div>
+    
+    <div class="dist-row">
+        <div class="dist-label">Bottoms</div>
+        <div class="dist-bar-wrap">
+            
+                <div class="dist-bar-fill" style="width: 16%;"></div>
+            
+        </div>
+        <div class="dist-count">7</div>
+    </div>
+    
+    <div class="dist-row">
+        <div class="dist-label">One-Pieces</div>
+        <div class="dist-bar-wrap">
+            
+                <div class="dist-bar-fill" style="width: 19%;"></div>
+            
+        </div>
+        <div class="dist-count">8</div>
+    </div>
+    
+    <div class="dist-row">
+        <div class="dist-label">Shoes</div>
+        <div class="dist-bar-wrap">
+            
+                <div class="dist-bar-fill" style="width: 19%;"></div>
+            
+        </div>
+        <div class="dist-count">8</div>
+    </div>
+    
+    <div class="dist-row">
+        <div class="dist-label">Bags</div>
+        <div class="dist-bar-wrap">
+            
+                <div class="dist-bar-fill" style="width: 14%;"></div>
+            
+        </div>
+        <div class="dist-count">6</div>
+    </div>
+    
+    <div class="dist-row">
+        <div class="dist-label">Accessories</div>
+        <div class="dist-bar-wrap">
+            
+                <div class="dist-bar-fill" style="width: 9%;"></div>
+            
+        </div>
+        <div class="dist-count">4</div>
+    </div>
+    
+</section>
+
+<!-- 5. RECENTLY ADDED -->
+<div class="section-title animate-in delay-3">
+    <h2>Recently Added</h2>
+    <a href="./wardrobe/index.html">View All &rarr;</a>
+</div>
+<section class="recent-grid animate-in delay-3">
+    
+    <div class="horizontal-card">
+        
+        <img src="./media/0cf94c11f8be6daf65ccc0bb3f13ba9c.jpg" alt="Off-the-shoulder embellished gown" class="hc-image">
+        
+        <div class="hc-details">
+            <h4>Off-the-shoulder embellished gown</h4>
+            <div class="hc-meta">
+                <span><i class="fa-solid fa-tag"></i> Dress</span>
+                <span><i class="fa-solid fa-sun"></i> All Season</span>
+                <span><i class="fa-solid fa-calendar"></i> Nov 18, 2026</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="horizontal-card">
+        
+        <img src="./media/download%20(7).png" alt="Anarkali Dress" class="hc-image">
+        
+        <div class="hc-details">
+            <h4>Anarkali Dress</h4>
+            <div class="hc-meta">
+                <span><i class="fa-solid fa-tag"></i> Dress</span>
+                <span><i class="fa-solid fa-sun"></i> Summer</span>
+                <span><i class="fa-solid fa-calendar"></i> Nov 18, 2026</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="horizontal-card">
+        
+        <img src="./media/1ac730b5ce11b218030d8aea56cf3364.jpg" alt="button-front midi dress" class="hc-image">
+        
+        <div class="hc-details">
+            <h4>button-front midi dress</h4>
+            <div class="hc-meta">
+                <span><i class="fa-solid fa-tag"></i> Dress</span>
+                <span><i class="fa-solid fa-sun"></i> Summer</span>
+                <span><i class="fa-solid fa-calendar"></i> Nov 18, 2026</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="horizontal-card">
+        
+        <img src="./media/399750f40175aba145e20e2f7bb75fdb.jpg" alt="Tiered Ruffle Skirt" class="hc-image">
+        
+        <div class="hc-details">
+            <h4>Tiered Ruffle Skirt</h4>
+            <div class="hc-meta">
+                <span><i class="fa-solid fa-tag"></i> Bottom</span>
+                <span><i class="fa-solid fa-sun"></i> Summer</span>
+                <span><i class="fa-solid fa-calendar"></i> Oct 20, 2026</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="horizontal-card">
+        
+        <img src="./media/256b785fb0b152a5c96185685f3a7197.jpg" alt="Block Heel Pumps" class="hc-image">
+        
+        <div class="hc-details">
+            <h4>Block Heel Pumps</h4>
+            <div class="hc-meta">
+                <span><i class="fa-solid fa-tag"></i> Shoes</span>
+                <span><i class="fa-solid fa-sun"></i> All Season</span>
+                <span><i class="fa-solid fa-calendar"></i> Oct 20, 2026</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="horizontal-card">
+        
+        <img src="./media/download%20(6).png" alt="Square Neckline Fit and Flare Dress" class="hc-image">
+        
+        <div class="hc-details">
+            <h4>Square Neckline Fit and Flare Dress</h4>
+            <div class="hc-meta">
+                <span><i class="fa-solid fa-tag"></i> Dress</span>
+                <span><i class="fa-solid fa-sun"></i> Summer</span>
+                <span><i class="fa-solid fa-calendar"></i> Oct 20, 2026</span>
+            </div>
+        </div>
+    </div>
+    
+</section>
+
+<!-- 6. WARDROBE INSIGHTS -->
+<div class="section-title animate-in delay-3">
+    <h2>Wardrobe Insights</h2>
+</div>
+<section class="insights-card animate-in delay-3">
+    <ul class="insight-list">
+        
+            <li><i class="fa-solid fa-circle-info"></i> Your most common color is Brown.</li>
+        
+            <li><i class="fa-solid fa-circle-info"></i> You have 10 tops in your wardrobe.</li>
+        
+            <li><i class="fa-solid fa-circle-info"></i> You have 8 shoes available.</li>
+        
+            <li><i class="fa-solid fa-circle-info"></i> 12 items are suitable for summer.</li>
+        
+            <li><i class="fa-solid fa-circle-info"></i> 21 outfits are marked as casual wear.</li>
+        
+    </ul>
+</section>
+
+<!-- 7 & 8. WEATHER WIDGET & RECENT ACTIVITY -->
+<div class="section-title animate-in delay-3">
+    <h2>Dashboard Overview</h2>
+</div>
+<section class="split-grid animate-in delay-3">
+    
+    <!-- 7. Weather with Current Weather Suggestion Sub-Widget -->
+    <div class="weather-widget">
+        <div class="weather-header">
+            <span>Current Weather</span>
+            <span>📍 Thrissur</span>
+        </div>
+        <div class="weather-main">
+            <div>
+                <h2>--°C</h2>
+                <p>Unavailable</p>
+            </div>
+            
+                
+                    <i class="fa-solid fa-sun" style="font-size: 4.5rem; color: var(--gold);"></i>
+                
+            
+        </div>
+        <div class="weather-details">
+            <div class="w-detail">
+                <span>Humidity</span>
+                <span>--%</span>
+            </div>
+            <div class="w-detail">
+                <span>Wind</span>
+                <span>-- km/h</span>
+            </div>
+        </div>
+
+       <div class="weather-suggestion-box">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+        <div class="weather-suggestion-content">
+            <h4>Weather Styling Tip</h4>
+          <p>
+        
+        
+        <!-- 1. CHECK FOR RAIN FIRST -->
+        
+            
+                Today brings a comfortable --°C (unavailable). It's the perfect weather for classic, versatile outfits without heavy layers.
+                
+                    Why not put together your <strong>Maroon Bell Sleeve Crop Top</strong> and <strong>Tiered Ruffle Skirt</strong>?
+                
+            
+        
+    </p>
+</div>
+        </div>
+    </div>
+
+    <!-- 8. Recent Activity -->
+    <div class="activity-widget">
+        <div class="weather-header">
+            <span>Activity Log</span>
+            <span>Timeline</span>
+        </div>
+        <div class="timeline">
+            
+                <div class="timeline-item">
+                    <p>Added Blue Dress</p>
+                    <span>Nov 18 at 7:14 PM</span>
+                </div>
+            
+                <div class="timeline-item">
+                    <p>Added Pink Dress</p>
+                    <span>Nov 18 at 7:08 PM</span>
+                </div>
+            
+                <div class="timeline-item">
+                    <p>Added Green Dress</p>
+                    <span>Nov 18 at 7:06 PM</span>
+                </div>
+            
+                <div class="timeline-item">
+                    <p>Added Blue Bottom</p>
+                    <span>Oct 20 at 6:43 PM</span>
+                </div>
+            
+                <div class="timeline-item">
+                    <p>Added Brown Shoes</p>
+                    <span>Oct 20 at 6:40 PM</span>
+                </div>
+            
+                <div class="timeline-item">
+                    <p>Added Navy Blue Dress</p>
+                    <span>Oct 20 at 6:39 PM</span>
+                </div>
+            
+        </div>
+    </div>
+
+</section>
+
+<!-- 9. SMART STYLING BANNER -->
+<section class="styling-banner animate-in delay-3">
+    <div class="banner-content">
+        <h2>Need outfit recommendations?</h2>
+        <p>Use Smart Styling to generate perfect combinations for any occasion based on your wardrobe.</p>
+        <a href="./stylist/index.html" class="banner-btn">
+            Open Smart Styling
+        </a>
+    </div>
+    <div style="font-size: 5rem; color: var(--gold); opacity: 0.2;">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+    </div>
+</section>
+
+<!-- 10. QUICK ACTIONS -->
+<div class="section-title animate-in delay-3">
+    <h2>Quick Actions</h2>
+</div>
+<section class="quick-actions animate-in delay-3">
+    <a href="/wardrobe/upload/" class="action-btn">
+        <i class="fa-solid fa-plus-circle"></i>
+        <span>Add Clothing</span>
+    </a>
+    <a href="./wardrobe/index.html" class="action-btn">
+        <i class="fa-solid fa-door-open"></i>
+        <span>View Wardrobe</span>
+    </a>
+    <a href="./stylist/index.html" class="action-btn">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+        <span>Smart Styling</span>
+    </a>
+    <a href="./profile/index.html" class="action-btn">
+        <i class="fa-solid fa-user"></i>
+        <span>Profile</span>
+    </a>
+</section>
+
+</div>
+
+    </main>
+
+    <footer class="footer">
+    <div class="container footer-container">
+        <div class="footer-left">
+            <h3 class="footer-brand">ALAMARA<span>i</span></h3>
+            <p class="footer-text">Intelligent Digital Wardrobe & Styling Assistant</p>
+        </div>
+        
+        <div class="footer-right">
+            <p class="footer-copy">&copy; 2026 ALAMARAi. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<style>
+/* =====================================
+   MINIMAL LUXURY FASHION FOOTER
+===================================== */
+.footer {
+    background-color: var(--surface, #FFFFFF);
+    border-top: 1px solid var(--border, #ECE7DE);
+    padding: 30px 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-brand {
+    font-size: 1.2rem;
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    color: var(--text-primary, #171717);
+    margin: 0 0 4px 0;
+    letter-spacing: 0.05em;
+}
+
+.footer-brand span {
+    color: var(--gold, #C8A96A);
+    font-style: italic;
+}
+
+.footer-text, 
+.footer-copy {
+    font-size: 0.8rem;
+    color: var(--text-secondary, #666666);
+    font-weight: 300;
+    margin: 0;
+    letter-spacing: 0.03em;
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+}
+</style>
+
+    <!-- Auto-dismiss Toast script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const toasts = document.querySelectorAll('.toast-message');
+            if (toasts.length > 0) {
+                setTimeout(function() {
+                    toasts.forEach(function(toast) {
+                        toast.style.transition = "all 0.4s ease";
+                        toast.style.opacity = "0";
+                        toast.style.transform = "translateX(100%)";
+                        
+                        setTimeout(function() {
+                            toast.remove();
+                            const container = document.getElementById('toast-container');
+                            if (container && container.innerHTML.trim() === '') {
+                                container.remove();
+                            }
+                        }, 400);
+                    });
+                }, 4000); // 4 seconds delay before dismissing
+            }
+        });
+    </script>
+
+    
+    
+
+</body>
+</html>

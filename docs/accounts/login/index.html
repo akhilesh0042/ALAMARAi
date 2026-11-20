@@ -1,0 +1,802 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        
+Login | ALAMARAi
+
+    </title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../static/css/variables.css">
+    <link rel="stylesheet" href="../static/css/base.css">
+    <link rel="stylesheet" href="../static/css/components.css">
+
+    <style>
+        /* =====================================
+           GLOBAL NAVBAR AVATAR STYLING
+        ===================================== */
+        .nav-avatar-link {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-avatar-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--gold, #C8A96A);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .nav-avatar-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(200, 169, 106, 0.2);
+        }
+
+        .nav-avatar-initial {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: transparent;
+            border: 1px solid var(--gold, #C8A96A);
+            color: var(--gold, #C8A96A);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s ease;
+        }
+
+        .nav-avatar-link:hover .nav-avatar-initial {
+            background-color: var(--gold, #C8A96A);
+            color: #ffffff;
+        }
+
+        /* =====================================
+           TOAST NOTIFICATIONS
+        ===================================== */
+        .toast-container {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast-message {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 24px;
+            background: var(--card-pure, #ffffff);
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            border-left: 4px solid transparent;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-main, #171717);
+            min-width: 300px;
+            animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .toast-success { border-left-color: #10B981; }
+        .toast-success i { color: #10B981; font-size: 1.2rem; }
+        
+        .toast-error { border-left-color: #EF4444; }
+        .toast-error i { color: #EF4444; font-size: 1.2rem; }
+
+        .toast-info { border-left-color: #3B82F6; }
+        .toast-info i { color: #3B82F6; font-size: 1.2rem; }
+
+        .toast-close {
+            margin-left: auto;
+            background: none;
+            border: none;
+            color: var(--text-muted, #666666);
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 0;
+            transition: color 0.2s ease;
+        }
+
+        .toast-close:hover { color: var(--text-main, #171717); }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+
+    
+<!-- Fonts and Icons -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+/* =====================================
+   HIDE GLOBAL ELEMENTS
+===================================== */
+.navbar, footer, .footer { 
+    display: none !important; 
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevents whole-page scrolling */
+    background-color: var(--background);
+}
+
+/* =====================================
+   SPLIT SCREEN ARCHITECTURE
+===================================== */
+.split-layout {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+/* --- Left Side: Editorial Image --- */
+.image-panel {
+    flex: 1.1; 
+    position: relative;
+    background-image: url('../static/images/8.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 65%);
+    display: flex;
+    align-items: flex-end;
+    padding: 4rem;
+}
+
+.image-overlay h2 {
+    font-family: var(--font-heading);
+    color: #fff;
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0;
+    animation: fadeUp 1s ease forwards;
+}
+
+.image-overlay h2 span {
+    color: var(--gold);
+    font-style: italic;
+}
+
+/* --- Right Side: Scrollable Form Panel --- */
+.form-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background);
+    position: relative;
+    overflow-y: auto; /* Allows scrolling only on this side if the screen is short */
+}
+
+/* Optional: Custom styling for scrollbar to keep it elegant */
+.form-panel::-webkit-scrollbar {
+    width: 6px;
+}
+.form-panel::-webkit-scrollbar-thumb {
+    background: #E2E8F0;
+    border-radius: 10px;
+}
+
+/* =====================================
+   HEADER ROW
+===================================== */
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 3rem; /* Reduced padding to save vertical space */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.brand-logo {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    transition: opacity 0.3s ease;
+}
+
+.brand-logo:hover {
+    opacity: 0.8;
+}
+
+.logo-main {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+    letter-spacing: 0.5px;
+}
+
+.logo-main span {
+    color: var(--gold);
+    font-style: italic;
+}
+
+.logo-sub {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    color: var(--text-secondary);
+    margin-top: 6px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.nav-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 8px 18px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    transition: all 0.3s ease;
+    background: transparent;
+}
+
+.nav-back-btn:hover {
+    color: var(--gold);
+    border-color: var(--gold);
+    background-color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+
+/* =====================================
+   ELEVATED FORM CONTAINER
+===================================== */
+.form-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 3rem 2rem 3rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-wrapper {
+    width: 100%;
+    max-width: 440px; 
+    background: #ffffff;
+    padding: 2.5rem 3rem; /* Tightened internal padding so it doesn't get cut off */
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.02);
+    border: 1px solid rgba(0,0,0,0.03);
+    animation: fadeUp 0.8s ease forwards;
+    animation-delay: 0.1s;
+    opacity: 0;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.auth-title {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 0.5rem 0;
+    letter-spacing: -0.5px;
+}
+
+.auth-subtitle {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem; /* Reduced to save space */
+    line-height: 1.5;
+    font-weight: 400;
+}
+
+/* =====================================
+   PRECISION INPUT FIELDS
+===================================== */
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+/* Flex layout for label + forgot password */
+.label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-primary);
+    margin: 0; /* Reset margin since flex handles it */
+}
+
+.forgot-link {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.forgot-link:hover {
+    color: var(--gold);
+}
+
+.input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.input-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%); 
+    color: #94A3B8;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.form-control {
+    width: 100%;
+    height: 54px; 
+    background: #F4F7F9; 
+    border: 1px solid transparent;
+    padding: 0 20px 0 50px; 
+    font-size: 1rem;
+    font-family: var(--font-body);
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+.form-control:focus {
+    outline: none;
+    background: #ffffff;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 4px rgba(200, 169, 106, 0.1);
+}
+
+.form-control:focus + .input-icon, 
+.input-wrapper:focus-within .input-icon {
+    color: var(--gold);
+}
+
+.form-control::placeholder {
+    color: #CBD5E1;
+    font-weight: 400;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%); 
+    background: none;
+    border: none;
+    color: #94A3B8;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+    padding: 0;
+}
+
+.password-toggle:hover {
+    color: var(--gold);
+}
+
+/* =====================================
+   BUTTON & FOOTER
+===================================== */
+.auth-submit-btn {
+    width: 100%;
+    height: 54px;
+    background: var(--text-primary);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: var(--font-body);
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+.auth-submit-btn:hover {
+    background: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(200, 169, 106, 0.25);
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.auth-footer a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 4px;
+    transition: color 0.3s ease;
+}
+
+.auth-footer a:hover {
+    color: var(--gold);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 900px) {
+    .image-panel { display: none; }
+    .split-layout { height: 100vh; }
+    .panel-header { padding: 1.5rem; }
+    .form-container { padding: 1rem; }
+    .form-wrapper { padding: 2rem; border-radius: 16px; }
+}
+</style>
+
+</head>
+<body>
+    <div style="background: linear-gradient(90deg, #111111, #1e1e1e); color: #C8A96A; text-align: center; padding: 10px 16px; font-size: 13px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; position: sticky; top: 0; z-index: 999999; border-bottom: 1px solid rgba(200,169,106,0.3); display: flex; align-items: center; justify-content: center; gap: 15px; flex-wrap: wrap;">
+        <span>✨ <strong>ALAMARAi Live Preview on GitHub Pages</strong> (43 Wardrobe Items Loaded)</span>
+        <div style="display: flex; gap: 10px;">
+            <a href="../dashboard/index.html" style="color: #fff; background: rgba(200,169,106,0.25); padding: 3px 10px; border-radius: 4px; text-decoration: none; font-size: 12px; border: 1px solid #C8A96A;">Dashboard</a>
+            <a href="../wardrobe/index.html" style="color: #fff; background: rgba(200,169,106,0.25); padding: 3px 10px; border-radius: 4px; text-decoration: none; font-size: 12px; border: 1px solid #C8A96A;">Wardrobe</a>
+            <a href="../stylist/index.html" style="color: #fff; background: rgba(200,169,106,0.25); padding: 3px 10px; border-radius: 4px; text-decoration: none; font-size: 12px; border: 1px solid #C8A96A;">Stylist</a>
+            <a href="https://github.com/akhilesh0042/ALAMARAi" target="_blank" style="color: #C8A96A; text-decoration: underline; font-size: 12px; margin-left: 5px;">GitHub Repo</a>
+        </div>
+    </div>
+    
+
+    
+
+<style>
+    /* =====================================
+       AUTHENTICATED UTILITY ZONE (Profile & Logout)
+    ===================================== */
+    .nav-user-actions {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+    }
+
+    .nav-divider {
+        width: 1px;
+        height: 24px;
+        background-color: var(--border-subtle, #E5E7EB);
+    }
+
+    .nav-logout-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--text-muted, #666666);
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .nav-logout-link:hover {
+        color: #DC2626;
+        transform: translateX(2px);
+    }
+
+    .nav-logout-link i {
+        font-size: 1.1rem;
+    }
+
+    /* =====================================
+       UNAUTHENTICATED UTILITY ZONE (Sign In & Get Started)
+    ===================================== */
+    .nav-auth-signin {
+        color: var(--text-main, #171717);
+        font-size: 0.85rem;
+        font-weight: 500;
+        text-decoration: none;
+        position: relative;
+        transition: color 0.3s ease;
+    }
+
+    /* Subtle sliding underline effect on hover */
+    .nav-auth-signin::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 1px;
+        bottom: -2px;
+        left: 0;
+        background-color: var(--gold, #C8A96A);
+        transition: width 0.3s ease;
+    }
+
+    .nav-auth-signin:hover::after {
+        width: 100%;
+    }
+
+    /* Eye-catching Soft Gold Pill Button */
+    .nav-auth-getstarted {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 24px;
+        background: linear-gradient(135deg, #C8A96A 0%, #AA8748 100%);
+        color: #ffffff;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        text-decoration: none;
+        border-radius: 50px;
+        box-shadow: 0 4px 15px rgba(200, 169, 106, 0.25);
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-auth-getstarted:hover {
+        background: var(--text-main, #171717);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+</style>
+
+<nav class="navbar">
+    <div class="container navbar-container">
+        
+        <!-- 1. BRAND ZONE (Left) -->
+        <a href="../index.html" class="brand">
+            <div class="brand-details">
+                <span class="brand-name">ALAMARA<span>i</span></span>
+                <span class="brand-tagline">Intelligent Digital Wardrobe</span>
+            </div>
+        </a>
+
+        
+            <!-- 3. UTILITY ZONE (Right) - UNAUTHENTICATED -->
+            <div class="nav-user-actions">
+                <a href="../accounts/login/index.html" class="nav-auth-signin">Sign In</a>
+                <a href="../accounts/signup/index.html" class="nav-auth-getstarted">Get Started</a>
+            </div>
+        
+
+    </div>
+</nav>
+
+    <!-- Elegant Toast Notifications -->
+    
+
+    <main>
+        
+<div class="split-layout">
+    
+    <!-- Left Side: Editorial Image -->
+    <div class="image-panel">
+        <div class="image-overlay">
+            <h2>Your Style.<br><span>Elevated.</span></h2>
+        </div>
+    </div>
+
+    <!-- Right Side: Application Interface (Now Scrollable) -->
+    <div class="form-panel">
+        
+        <!-- Header Row -->
+        <div class="panel-header">
+            <a href="../index.html" class="brand-logo">
+                <div class="logo-main">ALAMARA<span>i</span></div>
+                <div class="logo-sub">INTELLIGENT DIGITAL WARDROBE</div>
+            </a>
+            
+            <a href="../index.html" class="nav-back-btn">
+                <i class="fa-solid fa-arrow-left"></i> Home
+            </a>
+        </div>
+
+        <!-- Elevated Form UI -->
+        <div class="form-container">
+            <div class="form-wrapper">
+                <h2 class="auth-title">Welcome.</h2>
+                <p class="auth-subtitle">Log in to continue your intelligent fashion journey.</p>
+
+                <form method="POST">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="YCNoXrxjl22y0STDbV1vwSSrvXG4Fvq9ueYyxwjziR50ZQo9vtP87jpd4ipjlw2f">
+
+                    <!-- Username Field -->
+                    <div class="form-group">
+                        <div class="label-row">
+                            <label class="form-label">Username</label>
+                        </div>
+                        <div class="input-wrapper">
+                            <input type="text" name="username" class="form-control" placeholder="Enter your username" required>
+                            <i class="fa-regular fa-user input-icon"></i>
+                        </div>
+                    </div>
+
+                    <!-- Password Field with Forgot Password -->
+                    <div class="form-group">
+                         <!-- Inside login.html -->
+                            <div class="label-row">
+                                <label class="form-label">Password</label>
+                                <a href="/accounts/password_reset/" class="forgot-link">Forgot password?</a>
+                            </div>
+                        <div class="input-wrapper">
+                            <input type="password" name="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
+                            <i class="fa-solid fa-lock input-icon"></i>
+                            <button type="button" class="password-toggle" onclick="showPassword()">
+                                <i id="loginEye" class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button class="auth-submit-btn">Sign In</button>
+                </form>
+
+                <div class="auth-footer">
+                    Don't have an account yet? 
+                    <a href="../accounts/signup/index.html">Create Account</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    </main>
+
+    <footer class="footer">
+    <div class="container footer-container">
+        <div class="footer-left">
+            <h3 class="footer-brand">ALAMARA<span>i</span></h3>
+            <p class="footer-text">Intelligent Digital Wardrobe & Styling Assistant</p>
+        </div>
+        
+        <div class="footer-right">
+            <p class="footer-copy">&copy; 2026 ALAMARAi. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<style>
+/* =====================================
+   MINIMAL LUXURY FASHION FOOTER
+===================================== */
+.footer {
+    background-color: var(--surface, #FFFFFF);
+    border-top: 1px solid var(--border, #ECE7DE);
+    padding: 30px 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-brand {
+    font-size: 1.2rem;
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    color: var(--text-primary, #171717);
+    margin: 0 0 4px 0;
+    letter-spacing: 0.05em;
+}
+
+.footer-brand span {
+    color: var(--gold, #C8A96A);
+    font-style: italic;
+}
+
+.footer-text, 
+.footer-copy {
+    font-size: 0.8rem;
+    color: var(--text-secondary, #666666);
+    font-weight: 300;
+    margin: 0;
+    letter-spacing: 0.03em;
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+}
+</style>
+
+    <!-- Auto-dismiss Toast script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const toasts = document.querySelectorAll('.toast-message');
+            if (toasts.length > 0) {
+                setTimeout(function() {
+                    toasts.forEach(function(toast) {
+                        toast.style.transition = "all 0.4s ease";
+                        toast.style.opacity = "0";
+                        toast.style.transform = "translateX(100%)";
+                        
+                        setTimeout(function() {
+                            toast.remove();
+                            const container = document.getElementById('toast-container');
+                            if (container && container.innerHTML.trim() === '') {
+                                container.remove();
+                            }
+                        }, 400);
+                    });
+                }, 4000); // 4 seconds delay before dismissing
+            }
+        });
+    </script>
+
+    
+<script>
+function showPassword(){
+    let pass = document.getElementById("loginPassword");
+    let icon = document.getElementById("loginEye");
+
+    if(pass.type === "password"){
+        pass.type = "text";
+        icon.classList.replace("fa-eye", "fa-eye-slash");
+        icon.style.color = "var(--gold)";
+    } else {
+        pass.type = "password";
+        icon.classList.replace("fa-eye-slash", "fa-eye");
+        icon.style.color = "#94A3B8";
+    }
+}
+</script>
+
+
+</body>
+</html>
