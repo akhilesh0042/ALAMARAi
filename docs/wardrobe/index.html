@@ -19,9 +19,9 @@ ALAMARAi | My Wardrobe
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="./static/css/variables.css">
-    <link rel="stylesheet" href="./static/css/base.css">
-    <link rel="stylesheet" href="./static/css/components.css">
+    <link rel="stylesheet" href="../static/css/variables.css">
+    <link rel="stylesheet" href="../static/css/base.css">
+    <link rel="stylesheet" href="../static/css/components.css">
 
     <style>
         /* =====================================
@@ -485,9 +485,9 @@ ALAMARAi | My Wardrobe
     <div style="background: linear-gradient(90deg, #111111, #1e1e1e); color: #C8A96A; text-align: center; padding: 10px 16px; font-size: 13px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; position: sticky; top: 0; z-index: 999999; border-bottom: 1px solid rgba(200,169,106,0.3); display: flex; align-items: center; justify-content: center; gap: 15px; flex-wrap: wrap;">
         <span>✨ <strong>ALAMARAi Live Preview on GitHub Pages</strong> (43 Wardrobe Items Loaded)</span>
         <div style="display: flex; gap: 10px;">
-            <a href="./dashboard/index.html" style="color: #fff; background: rgba(200,169,106,0.25); padding: 3px 10px; border-radius: 4px; text-decoration: none; font-size: 12px; border: 1px solid #C8A96A;">Dashboard</a>
-            <a href="./wardrobe/index.html" style="color: #fff; background: rgba(200,169,106,0.25); padding: 3px 10px; border-radius: 4px; text-decoration: none; font-size: 12px; border: 1px solid #C8A96A;">Wardrobe</a>
-            <a href="./stylist/index.html" style="color: #fff; background: rgba(200,169,106,0.25); padding: 3px 10px; border-radius: 4px; text-decoration: none; font-size: 12px; border: 1px solid #C8A96A;">Stylist</a>
+            <a href="../dashboard/index.html" style="color: #fff; background: rgba(200,169,106,0.25); padding: 3px 10px; border-radius: 4px; text-decoration: none; font-size: 12px; border: 1px solid #C8A96A;">Dashboard</a>
+            <a href="../wardrobe/index.html" style="color: #fff; background: rgba(200,169,106,0.25); padding: 3px 10px; border-radius: 4px; text-decoration: none; font-size: 12px; border: 1px solid #C8A96A;">Wardrobe</a>
+            <a href="../stylist/index.html" style="color: #fff; background: rgba(200,169,106,0.25); padding: 3px 10px; border-radius: 4px; text-decoration: none; font-size: 12px; border: 1px solid #C8A96A;">Stylist</a>
             <a href="https://github.com/akhilesh0042/ALAMARAi" target="_blank" style="color: #C8A96A; text-decoration: underline; font-size: 12px; margin-left: 5px;">GitHub Repo</a>
         </div>
     </div>
@@ -590,7 +590,7 @@ ALAMARAi | My Wardrobe
     <div class="container navbar-container">
         
         <!-- 1. BRAND ZONE (Left) -->
-        <a href="./index.html" class="brand">
+        <a href="../index.html" class="brand">
             <div class="brand-details">
                 <span class="brand-name">ALAMARA<span>i</span></span>
                 <span class="brand-tagline">Intelligent Digital Wardrobe</span>
@@ -600,16 +600,16 @@ ALAMARAi | My Wardrobe
         
             <!-- 2. PRIMARY NAVIGATION (Center) -->
             <div class="nav-main-links">
-                <a href="./dashboard/index.html" class="nav-link ">
+                <a href="../dashboard/index.html" class="nav-link ">
                     Dashboard
                 </a>
-                <a href="./wardrobe/index.html" class="nav-link active">
+                <a href="../wardrobe/index.html" class="nav-link active">
                     Wardrobe
                 </a>
-                <a href="/wardrobe/ai-upload/" class="nav-link ">
+                <a href="../wardrobe/index.html" class="nav-link ">
                     Add Outfit
                 </a>
-                <a href="./stylist/index.html" class="nav-link ">
+                <a href="../stylist/index.html" class="nav-link ">
                     Smart Styling
                 </a>
             </div>
@@ -618,9 +618,9 @@ ALAMARAi | My Wardrobe
             <div class="nav-user-actions">
                 
                 <!-- Avatar -->
-                <a href="./profile/index.html" class="nav-avatar-link" title="Profile Settings">
+                <a href="../profile/index.html" class="nav-avatar-link" title="Profile Settings">
                     
-                        <img src="./media/profile_pictures/girlll.jpg" alt="Profile" class="nav-avatar-img">
+                        <img src="../media/profile_pictures/girlll.jpg" alt="Profile" class="nav-avatar-img">
                     
                 </a>
 
@@ -628,7 +628,7 @@ ALAMARAi | My Wardrobe
                 <span class="nav-divider"></span>
                 
                 <!-- Sleek Logout Link -->
-                <a href="/accounts/logout/" class="nav-logout-link" title="Sign Out">
+                <a href="../index.html" class="nav-logout-link" title="Sign Out">
                     <i class="fa-solid fa-arrow-right-from-bracket"></i>
                     <span>Logout</span>
                 </a>
@@ -723,7 +723,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/0cf94c11f8be6daf65ccc0bb3f13ba9c.jpg" alt="Off-the-shoulder embellished gown">
+                <img src="../media/0cf94c11f8be6daf65ccc0bb3f13ba9c.jpg" alt="Off-the-shoulder embellished gown">
                 
                 <span class="item-badge">Dress</span>
             </div>
@@ -744,10 +744,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/67/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/67/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -758,7 +758,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/download%20(7).png" alt="Anarkali Dress">
+                <img src="../media/download%20(7).png" alt="Anarkali Dress">
                 
                 <span class="item-badge">Dress</span>
             </div>
@@ -779,10 +779,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/66/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/66/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -793,7 +793,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/1ac730b5ce11b218030d8aea56cf3364.jpg" alt="button-front midi dress">
+                <img src="../media/1ac730b5ce11b218030d8aea56cf3364.jpg" alt="button-front midi dress">
                 
                 <span class="item-badge">Dress</span>
             </div>
@@ -814,10 +814,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/65/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/65/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -828,7 +828,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/399750f40175aba145e20e2f7bb75fdb.jpg" alt="Tiered Ruffle Skirt">
+                <img src="../media/399750f40175aba145e20e2f7bb75fdb.jpg" alt="Tiered Ruffle Skirt">
                 
                 <span class="item-badge">Bottom</span>
             </div>
@@ -849,10 +849,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/64/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/64/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -863,7 +863,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/256b785fb0b152a5c96185685f3a7197.jpg" alt="Block Heel Pumps">
+                <img src="../media/256b785fb0b152a5c96185685f3a7197.jpg" alt="Block Heel Pumps">
                 
                 <span class="item-badge">Shoes</span>
             </div>
@@ -884,10 +884,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/63/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/63/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -898,7 +898,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/download%20(6).png" alt="Square Neckline Fit and Flare Dress">
+                <img src="../media/download%20(6).png" alt="Square Neckline Fit and Flare Dress">
                 
                 <span class="item-badge">Dress</span>
             </div>
@@ -919,10 +919,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/62/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/62/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -933,7 +933,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/51b09d8a36adb8905ce54056e6a25394.jpg" alt="Bell Sleeve Crop Top">
+                <img src="../media/51b09d8a36adb8905ce54056e6a25394.jpg" alt="Bell Sleeve Crop Top">
                 
                 <span class="item-badge">Top</span>
             </div>
@@ -954,10 +954,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/61/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/61/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -968,7 +968,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/6bac73392b7512636e0cc2ae1493b6bf.jpg" alt="Tiered Maxi Dress">
+                <img src="../media/6bac73392b7512636e0cc2ae1493b6bf.jpg" alt="Tiered Maxi Dress">
                 
                 <span class="item-badge">Dress</span>
             </div>
@@ -989,10 +989,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/60/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/60/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1003,7 +1003,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/f892044eb403e3e6ff30cca64e576763.jpg" alt="Pinstripe Fitted Shirt">
+                <img src="../media/f892044eb403e3e6ff30cca64e576763.jpg" alt="Pinstripe Fitted Shirt">
                 
                 <span class="item-badge">Shirt</span>
             </div>
@@ -1024,10 +1024,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/59/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/59/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1038,7 +1038,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/deaee1af5d7091d8c90ee865022f9938.jpg" alt="Tote Bag">
+                <img src="../media/deaee1af5d7091d8c90ee865022f9938.jpg" alt="Tote Bag">
                 
                 <span class="item-badge">Bag</span>
             </div>
@@ -1059,10 +1059,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/58/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/58/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1073,7 +1073,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/images.jpeg" alt="Platform Sneakers">
+                <img src="../media/images.jpeg" alt="Platform Sneakers">
                 
                 <span class="item-badge">Shoes</span>
             </div>
@@ -1094,10 +1094,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/57/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/57/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1108,7 +1108,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/a3d4e997ae48cf073a46e16770440461.jpg" alt="Pinstripe Shirt">
+                <img src="../media/a3d4e997ae48cf073a46e16770440461.jpg" alt="Pinstripe Shirt">
                 
                 <span class="item-badge">Shirt</span>
             </div>
@@ -1129,10 +1129,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/56/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/56/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1143,7 +1143,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/b65e65d1381d3c13e372954de91658ca.jpg" alt="mary jane shoes">
+                <img src="../media/b65e65d1381d3c13e372954de91658ca.jpg" alt="mary jane shoes">
                 
                 <span class="item-badge">Shoes</span>
             </div>
@@ -1164,10 +1164,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/55/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/55/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1178,7 +1178,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/WhatsApp%20Image%202026-07-03%20at%2010.09.50%20PM%20(1).jpeg" alt="Black Trousers">
+                <img src="../media/WhatsApp%20Image%202026-07-03%20at%2010.09.50%20PM%20(1).jpeg" alt="Black Trousers">
                 
                 <span class="item-badge">Bottom</span>
             </div>
@@ -1199,10 +1199,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/3/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/3/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1213,7 +1213,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/WhatsApp%20Image%202026-07-03%20at%2010.09.49%20PM%20(1).jpeg" alt="Brown Pants">
+                <img src="../media/WhatsApp%20Image%202026-07-03%20at%2010.09.49%20PM%20(1).jpeg" alt="Brown Pants">
                 
                 <span class="item-badge">Bottom</span>
             </div>
@@ -1234,10 +1234,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/4/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/4/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1248,7 +1248,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/WhatsApp%20Image%202026-07-03%20at%2010.09.49%20PM.jpeg" alt="Beige Woven Flats">
+                <img src="../media/WhatsApp%20Image%202026-07-03%20at%2010.09.49%20PM.jpeg" alt="Beige Woven Flats">
                 
                 <span class="item-badge">Shoes</span>
             </div>
@@ -1269,10 +1269,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/6/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/6/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1283,7 +1283,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/WhatsApp%20Image%202026-07-03%20at%2010.09.48%20PM.jpeg" alt="Brown White Sneakers">
+                <img src="../media/WhatsApp%20Image%202026-07-03%20at%2010.09.48%20PM.jpeg" alt="Brown White Sneakers">
                 
                 <span class="item-badge">Shoes</span>
             </div>
@@ -1304,10 +1304,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/7/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/7/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1318,7 +1318,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/WhatsApp%20Image%202026-07-07%20at%209.34.31%20PM%20(1).jpeg" alt="Gold Heart Necklace">
+                <img src="../media/WhatsApp%20Image%202026-07-07%20at%209.34.31%20PM%20(1).jpeg" alt="Gold Heart Necklace">
                 
                 <span class="item-badge">Accessory</span>
             </div>
@@ -1339,10 +1339,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/8/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/8/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1353,7 +1353,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/WhatsApp%20Image%202026-07-07%20at%209.34.32%20PM%20(1).jpeg" alt="White Handbag">
+                <img src="../media/WhatsApp%20Image%202026-07-07%20at%209.34.32%20PM%20(1).jpeg" alt="White Handbag">
                 
                 <span class="item-badge">Bag</span>
             </div>
@@ -1374,10 +1374,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/9/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/9/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1388,7 +1388,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/WhatsApp%20Image%202026-07-07%20at%209.34.31%20PM.jpeg" alt="Gold Earrings">
+                <img src="../media/WhatsApp%20Image%202026-07-07%20at%209.34.31%20PM.jpeg" alt="Gold Earrings">
                 
                 <span class="item-badge">Accessory</span>
             </div>
@@ -1409,10 +1409,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/12/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/12/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1423,7 +1423,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/WhatsApp%20Image%202026-07-07%20at%209.34.34%20PM%20(1).jpeg" alt="Cable Knit Collared Top">
+                <img src="../media/WhatsApp%20Image%202026-07-07%20at%209.34.34%20PM%20(1).jpeg" alt="Cable Knit Collared Top">
                 
                 <span class="item-badge">Top</span>
             </div>
@@ -1444,10 +1444,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/13/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/13/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1458,7 +1458,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/WhatsApp%20Image%202026-07-07%20at%209_JveHGuo.34.35%20PM.jpeg" alt="Ruched Drawstring Long Sleeve Top">
+                <img src="../media/WhatsApp%20Image%202026-07-07%20at%209_JveHGuo.34.35%20PM.jpeg" alt="Ruched Drawstring Long Sleeve Top">
                 
                 <span class="item-badge">Top</span>
             </div>
@@ -1479,10 +1479,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/18/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/18/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1493,7 +1493,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/WhatsApp%20Image%202026-07-07%20at%209.34.32%20PM%20(2).jpeg" alt="Shoulder Bag">
+                <img src="../media/WhatsApp%20Image%202026-07-07%20at%209.34.32%20PM%20(2).jpeg" alt="Shoulder Bag">
                 
                 <span class="item-badge">Bag</span>
             </div>
@@ -1514,10 +1514,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/19/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/19/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1528,7 +1528,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/WhatsApp%20Image%202026-07-07%20at%209_1ouGpYs.34.33%20PM%20(3).jpeg" alt="Peplum Bow Top">
+                <img src="../media/WhatsApp%20Image%202026-07-07%20at%209_1ouGpYs.34.33%20PM%20(3).jpeg" alt="Peplum Bow Top">
                 
                 <span class="item-badge">Top</span>
             </div>
@@ -1549,10 +1549,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/21/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/21/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1563,7 +1563,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/WhatsApp%20Image%202026-08-01%20at%207.46.11%20PM.jpeg" alt="Pleated Wide-Leg Pants">
+                <img src="../media/WhatsApp%20Image%202026-08-01%20at%207.46.11%20PM.jpeg" alt="Pleated Wide-Leg Pants">
                 
                 <span class="item-badge">Bottom</span>
             </div>
@@ -1584,10 +1584,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/24/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/24/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1598,7 +1598,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/WhatsApp%20Image%202026-07-03%20at%2010_2PUVToo.09.50%20PM.jpeg" alt="Ribbed Bell Sleeve Top">
+                <img src="../media/WhatsApp%20Image%202026-07-03%20at%2010_2PUVToo.09.50%20PM.jpeg" alt="Ribbed Bell Sleeve Top">
                 
                 <span class="item-badge">Top</span>
             </div>
@@ -1619,10 +1619,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/29/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/29/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1633,7 +1633,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/87de61463182fa9ccd31a7a7084395e2.jpg" alt="Square Neck Puff Sleeve Top">
+                <img src="../media/87de61463182fa9ccd31a7a7084395e2.jpg" alt="Square Neck Puff Sleeve Top">
                 
                 <span class="item-badge">Top</span>
             </div>
@@ -1654,10 +1654,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/30/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/30/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1668,7 +1668,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/6ac4644878f212e9c848452e17bb6240.jpg" alt="Wide-leg jeans">
+                <img src="../media/6ac4644878f212e9c848452e17bb6240.jpg" alt="Wide-leg jeans">
                 
                 <span class="item-badge">Bottom</span>
             </div>
@@ -1689,10 +1689,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/32/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/32/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1703,7 +1703,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/WhatsApp%20Image%202026-07-07%20at%209_hHbX2vt.34.32%20PM.jpeg" alt="Floral Mesh Maxi Dress">
+                <img src="../media/WhatsApp%20Image%202026-07-07%20at%209_hHbX2vt.34.32%20PM.jpeg" alt="Floral Mesh Maxi Dress">
                 
                 <span class="item-badge">Dress</span>
             </div>
@@ -1724,10 +1724,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/33/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/33/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1738,7 +1738,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/283bf5f0db155ae4895414af98508fa3.jpg" alt="Wide Leg Jeans">
+                <img src="../media/283bf5f0db155ae4895414af98508fa3.jpg" alt="Wide Leg Jeans">
                 
                 <span class="item-badge">Bottom</span>
             </div>
@@ -1759,10 +1759,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/34/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/34/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1773,7 +1773,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/a49010f8a3845e62cf3f7392877346db.jpg" alt="Denim Shirt with Bow Detail">
+                <img src="../media/a49010f8a3845e62cf3f7392877346db.jpg" alt="Denim Shirt with Bow Detail">
                 
                 <span class="item-badge">Shirt</span>
             </div>
@@ -1794,10 +1794,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/35/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/35/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1808,7 +1808,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/images%20(5).jpeg" alt="Ballet Flats">
+                <img src="../media/images%20(5).jpeg" alt="Ballet Flats">
                 
                 <span class="item-badge">Shoes</span>
             </div>
@@ -1829,10 +1829,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/37/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/37/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1843,7 +1843,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/images%20(4).jpeg" alt="Burgundy Buckled Platform Boots">
+                <img src="../media/images%20(4).jpeg" alt="Burgundy Buckled Platform Boots">
                 
                 <span class="item-badge">Shoes</span>
             </div>
@@ -1864,10 +1864,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/38/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/38/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1878,7 +1878,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/af8bbd6c6666c0d566b97d216b1855e2.jpg" alt="Tote Bag">
+                <img src="../media/af8bbd6c6666c0d566b97d216b1855e2.jpg" alt="Tote Bag">
                 
                 <span class="item-badge">Bag</span>
             </div>
@@ -1899,10 +1899,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/39/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/39/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1913,7 +1913,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/42cfbba4e1e4ab3b1387bbafe2a0f485.jpg" alt="Bucket Bag">
+                <img src="../media/42cfbba4e1e4ab3b1387bbafe2a0f485.jpg" alt="Bucket Bag">
                 
                 <span class="item-badge">Bag</span>
             </div>
@@ -1934,10 +1934,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/40/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/40/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1948,7 +1948,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/5ce6515b9d30b09edaf35b795510300f.jpg" alt="Infinity Necklace">
+                <img src="../media/5ce6515b9d30b09edaf35b795510300f.jpg" alt="Infinity Necklace">
                 
                 <span class="item-badge">Accessory</span>
             </div>
@@ -1969,10 +1969,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/41/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/41/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -1983,7 +1983,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/ec38ec7ed3f6e00dc6cd914a62f81df1.jpg" alt="Bow Necklace">
+                <img src="../media/ec38ec7ed3f6e00dc6cd914a62f81df1.jpg" alt="Bow Necklace">
                 
                 <span class="item-badge">Accessory</span>
             </div>
@@ -2004,10 +2004,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/42/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/42/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -2018,7 +2018,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/1c31ec7d565bfb205135369d814421ec.jpg" alt="Striped Button-Up Shirt">
+                <img src="../media/1c31ec7d565bfb205135369d814421ec.jpg" alt="Striped Button-Up Shirt">
                 
                 <span class="item-badge">Shirt</span>
             </div>
@@ -2039,10 +2039,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/43/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/43/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -2053,7 +2053,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/ba92d96ed58bfa7b355473e04ce0b4c4.jpg" alt="Bucket Bag">
+                <img src="../media/ba92d96ed58bfa7b355473e04ce0b4c4.jpg" alt="Bucket Bag">
                 
                 <span class="item-badge">Bag</span>
             </div>
@@ -2074,10 +2074,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/50/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/50/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -2088,7 +2088,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/dc6143e369851f93a272d0969caf2aa6.jpg" alt="Anarkali Suit Set">
+                <img src="../media/dc6143e369851f93a272d0969caf2aa6.jpg" alt="Anarkali Suit Set">
                 
                 <span class="item-badge">Dress</span>
             </div>
@@ -2109,10 +2109,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/51/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/51/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -2123,7 +2123,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/bddfd43d812346bd026d257d8abe7998.jpg" alt="ankle boots">
+                <img src="../media/bddfd43d812346bd026d257d8abe7998.jpg" alt="ankle boots">
                 
                 <span class="item-badge">Shoes</span>
             </div>
@@ -2144,10 +2144,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/52/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/52/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -2158,7 +2158,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/5ba8ff973165467eec9b4926f1ed6c71_GHhS0MY.jpg" alt="Anarkali Suit with Palazzo and Dupatta">
+                <img src="../media/5ba8ff973165467eec9b4926f1ed6c71_GHhS0MY.jpg" alt="Anarkali Suit with Palazzo and Dupatta">
                 
                 <span class="item-badge">Dress</span>
             </div>
@@ -2179,10 +2179,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/53/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/53/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
@@ -2193,7 +2193,7 @@ ALAMARAi | My Wardrobe
             
             <div class="card-img-wrapper">
                 
-                <img src="./media/45cb4a137e33c305bb0cd1d4f0cc3ea2_BKQXKxH.jpg" alt="wide-leg denim pants">
+                <img src="../media/45cb4a137e33c305bb0cd1d4f0cc3ea2_BKQXKxH.jpg" alt="wide-leg denim pants">
                 
                 <span class="item-badge">Bottom</span>
             </div>
@@ -2214,10 +2214,10 @@ ALAMARAi | My Wardrobe
             </div>
 
             <div class="clothing-footer">
-                <a href="/wardrobe/edit/54/" class="btn-edit">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-edit">
                     Edit
                 </a>
-                <a href="/wardrobe/delete/54/" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
+                <a href="javascript:void(0)" onclick="alert('Note: Dynamic item modification (edit/delete) requires the full Django backend (e.g. on Render/Railway). This GitHub Pages preview showcases your 43 items in read-only mode.')" class="btn-delete" onclick="return confirm('Delete this clothing item?');">
                     Delete
                 </a>
             </div>
